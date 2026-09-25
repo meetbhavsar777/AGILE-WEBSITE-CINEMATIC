@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-09-25",
+    "macrostructure": "Marquee Hero (film variant) — in-place refinement, structure unchanged",
+    "theme": "custom",
+    "theme_axes": "light / grotesk-sans / cool",
+    "vibe": "calibrated daylight lab, one cobalt signal",
+    "enrichment": "E1 real footage (corporate film loop)",
+    "nav": "N5",
+    "footer": "none (hero-only build)",
+    "brief": "Agile SciTech hero refinement: dropped mono caps labels and middle dots, one quote label, removed texture, 4pt spacing, carousel pause (WCAG 2.2.2)"
+  },
+  {
     "date": "2026-09-24",
     "macrostructure": "Marquee Hero (film variant: letterbox slot in headline opens to full-screen film on scroll)",
     "theme": "custom",

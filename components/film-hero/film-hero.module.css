@@ -2,7 +2,7 @@
  * hero: letterbox-to-fullscreen film · nav: N5 floating pill · enrichment: E1 real footage (corporate film)
  * motion: load intro (lines → copy → film line → film open → arc) · scroll-opened film · nightfall hand-off
  *         letter-roll labels · dialog scale-in · reference: lusion.co (principles only)
- * pre-emit critique: P4 H4 E4 S4 R4 V4 · labels sentence-case in the body face (no mono, no caps, no middle dots)
+ * pre-emit critique: P4 H5 E5 S5 R5 V4 · slop gates: pass except 44a (viewport-locked stage, see handoff) · labels sentence-case in the body face (no mono, no caps, no middle dots)
  *
  * Intro timeline (ms): lines 100/200/300 +800 · lede 750 · actions 850 · proof 1000 (+650, figures count up to 2100)
  *                      film line 650 +450 · film open 1100 +500 · arc 1150 +850 · dot 1850 +400
@@ -250,7 +250,7 @@
   align-items: center;
   gap: var(--space-xs);
   height: 3rem;
-  padding: 0 1.375rem;
+  padding: 0 var(--space-lg);
   border-radius: var(--radius-pill);
   font-family: var(--font-body);
   font-size: 0.9375rem;
@@ -289,6 +289,13 @@
 .secondary:active,
 .onFilm:active {
   transform: translateY(1px);
+}
+
+.secondary:disabled,
+.onFilm:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .primary:focus-visible,
@@ -526,7 +533,8 @@
   font-family: var(--font-logo);
   font-size: 10vw;
   font-weight: 600;
-  line-height: 0.92;
+  /* All-caps floor: below 1.0 the stacked phone lines collide. */
+  line-height: 1;
   letter-spacing: 0.01em;
   white-space: nowrap;
 }

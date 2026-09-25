@@ -29,7 +29,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-lg);
-  padding: 0.375rem 0.4375rem 0.375rem 0.875rem;
+  padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-md);
   border: var(--rule-hair) solid var(--color-night-rule);
   border-radius: var(--radius-pill);
   background: color-mix(in oklch, var(--color-night) 90%, transparent);
