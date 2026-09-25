@@ -17,7 +17,7 @@ const sora = Sora({
 export const metadata: Metadata = {
   title: "Agile SciTech — Laboratory instruments, supported in India",
   description:
-    "Authorised partner in India for Welch, Inscinstech, RainSure, FlowCam, Unchained Labs and Bio-Techne. Supplied, installed and serviced from Ahmedabad since 2013.",
+    "Authorised in India for Welch, Inscinstech, RainSure, FlowCam, Unchained Labs and Bio-Techne. Serving pharma and biotech labs from Ahmedabad since 2013.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
