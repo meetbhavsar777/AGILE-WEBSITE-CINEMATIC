@@ -1,7 +1,7 @@
 /* Hallmark · genre: modern-minimal · theme: custom (vibe: "calibrated daylight lab, one cobalt signal")
  * palette taken from the Agile SciTech logo: paper = wordmark white #eef2f8 · ink = logo ground #04060a
  * accent = mark blue #2560f0 (deep #1340b5, bright #3d9bff) · glow = mark tip #9ae6ff
- * display+body: Host Grotesk · labels: IBM Plex Mono · wordmark: Sora (logo only)
+ * display+body: Host Grotesk · wordmark: Sora (logo + brand statement only)
  * axes: light / grotesk-sans / cool
  */
 :root {
@@ -32,9 +32,8 @@
   /* Type */
   --font-display: var(--font-host-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-host-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-label: var(--font-plex-mono), ui-monospace, monospace;
   --font-logo: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
-  --text-label: 0.75rem;
+  --text-small: 0.875rem;
   --text-body: 1.0625rem;
   --text-lede: clamp(1.0625rem, 0.35vw + 1rem, 1.25rem);
   /* Tracks height too, so the whole hero fits short laptop screens. */
