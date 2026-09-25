@@ -3,17 +3,19 @@
 .wrap {
   position: fixed;
   top: var(--space-md);
-  left: 50%;
+  right: 0;
+  left: 0;
   z-index: 20;
-  transform: translateX(-50%);
+  width: max-content;
   max-width: calc(100vw - 2 * var(--space-md));
+  margin-inline: auto;
   animation: nav-in 600ms var(--ease-out) backwards;
 }
 
 @keyframes nav-in {
   from {
     opacity: 0;
-    transform: translate(-50%, -10px);
+    transform: translateY(-10px);
   }
 }
 
@@ -104,5 +106,22 @@
 
   .pill {
     gap: var(--space-md);
+  }
+}
+
+/* Narrowest phones: the pill must fit beside a full "Request a quote". */
+@media (max-width: 380px) {
+  .pill {
+    gap: var(--space-sm);
+    padding-left: var(--space-sm);
+  }
+
+  .logo {
+    height: 1.875rem;
+  }
+
+  .cta {
+    padding: 0 var(--space-sm);
+    font-size: 0.8125rem;
   }
 }

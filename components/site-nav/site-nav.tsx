@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/logo";
+import { QUOTE_HREF, QUOTE_LABEL } from "@/lib/contact";
 import { RollText } from "@/components/film-hero/roll-text";
 import styles from "./site-nav.module.css";
 
@@ -29,9 +30,9 @@ export function SiteNav() {
         </ul>
         <a
           className={styles.cta}
-          href="mailto:sales@agilescitech.in?subject=Quote%20request"
+          href={QUOTE_HREF}
         >
-          <RollText>Get a quote</RollText>
+          <RollText>{QUOTE_LABEL}</RollText>
         </a>
       </nav>
     </header>

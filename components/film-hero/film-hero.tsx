@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type CSSProperties } from "react";
+import { QUOTE_HREF, QUOTE_LABEL } from "@/lib/contact";
 import { RollText } from "./roll-text";
 import styles from "./film-hero.module.css";
 
@@ -12,8 +13,6 @@ const FILM = {
   full: "/video/agile-film-1080.mp4",
   duration: "2:15",
 };
-
-const QUOTE_HREF = "mailto:sales@agilescitech.in?subject=Quote%20request";
 
 // Figures from the current agilescitech.in home page.
 const STATS = [
@@ -289,7 +288,7 @@ export function FilmHero() {
               </p>
               <div className={styles.actions}>
                 <a className={styles.primary} href={QUOTE_HREF}>
-                  <RollText>Request a quote</RollText>
+                  <RollText>{QUOTE_LABEL}</RollText>
                 </a>
                 <button
                   type="button"
