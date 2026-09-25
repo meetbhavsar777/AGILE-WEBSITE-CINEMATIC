@@ -1,0 +1,48 @@
+.roll {
+  display: inline-flex;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.track {
+  display: inline-flex;
+  overflow: hidden;
+  line-height: 1.25;
+}
+
+.char {
+  position: relative;
+  display: inline-block;
+  transition: transform var(--dur-long) var(--ease-out);
+  transition-delay: calc(var(--i) * 12ms);
+}
+
+.char::after {
+  content: attr(data-char);
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+:is(a, button):hover .char,
+:is(a, button):focus-visible .char {
+  transform: translateY(-100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .char {
+    transition: none;
+  }
+
+  :is(a, button):hover .char,
+  :is(a, button):focus-visible .char {
+    transform: none;
+  }
+}

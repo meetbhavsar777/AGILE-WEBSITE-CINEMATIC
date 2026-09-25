@@ -1,0 +1,841 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Marquee Hero (film variant) · theme: custom (see app/tokens.css)
+ * hero: letterbox-to-fullscreen film · nav: N5 floating pill · enrichment: E1 real footage (corporate film)
+ * motion: load intro (lines → copy → film line → film open → arc) · scroll-opened film · nightfall hand-off
+ *         letter-roll labels · dialog scale-in · reference: lusion.co (principles only)
+ * pre-emit critique: P4 H4 E4 S4 R4 V4 · labels sentence-case in the body face (no mono, no caps, no middle dots)
+ *
+ * Intro timeline (ms): lines 100/200/300 +800 · lede 750 · actions 850 · proof 1000 (+650, figures count up to 2100)
+ *                      film line 650 +450 · film open 1100 +500 · arc 1150 +850 · dot 1850 +400
+ */
+
+@property --intro-x {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --intro-y {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+.hero {
+  position: relative;
+  height: 340vh;
+  height: 340svh;
+}
+
+.stage {
+  --p: 0;
+  --q: 0;
+  --intro-x: 1;
+  --intro-y: 1;
+  --slot-top: 0px;
+  --slot-right: 0px;
+  --slot-bottom: 0px;
+  --slot-left: 0px;
+  --slot-w: 0px;
+  --slot-h: 0px;
+  --slot-dx: 0px;
+  --slot-dy: 0px;
+  --slot-scale: 1;
+
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: clip;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  animation:
+    film-line 450ms var(--ease-in-out) 650ms backwards,
+    film-open 500ms var(--ease-out) 1100ms backwards;
+}
+
+@keyframes film-line {
+  from {
+    --intro-x: 0;
+  }
+}
+
+@keyframes film-open {
+  from {
+    --intro-y: 0;
+  }
+}
+
+/* Faint lab chart paper behind the copy, fading out towards the lower left. */
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--color-grid) var(--rule-hair), transparent var(--rule-hair)),
+    linear-gradient(to bottom, var(--color-grid) var(--rule-hair), transparent var(--rule-hair));
+  background-size: 96px 96px;
+  background-position: var(--gutter) 0;
+  mask-image: radial-gradient(ellipse 75% 80% at 80% 20%, black, transparent);
+  pointer-events: none;
+}
+
+/* ---------- Copy ---------- */
+
+.copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  height: 100%;
+  padding: calc(var(--space-3xl) + var(--space-xl)) var(--gutter)
+    var(--space-lg);
+  opacity: calc(1 - var(--p) * 2.4);
+}
+
+.stage:not([data-phase="rest"]) .copy {
+  pointer-events: none;
+}
+
+.copy:focus-within {
+  opacity: 1;
+}
+
+.title {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+
+/* Each line rises out of its own mask, one after another. The mask sits on
+   the still outer line, so it never travels with the text; it lets the
+   descenders through only once the text has nearly landed. */
+.line {
+  display: block;
+  animation: line-mask 800ms linear 100ms backwards;
+}
+
+.lineInner {
+  display: block;
+  animation: line-rise 800ms var(--ease-out) 100ms backwards;
+}
+
+.line:nth-child(2),
+.line:nth-child(2) .lineInner {
+  animation-delay: 200ms;
+}
+
+.line:nth-child(3),
+.line:nth-child(3) .lineInner {
+  animation-delay: 300ms;
+}
+
+@keyframes line-mask {
+  0%,
+  60% {
+    clip-path: inset(-0.3em -0.3em 0 -0.3em);
+  }
+  100% {
+    clip-path: inset(-0.3em -0.3em -0.45em -0.3em);
+  }
+}
+
+/* Past 100%: at this tight leading, ascenders overhang the line box. */
+@keyframes line-rise {
+  from {
+    transform: translateY(calc(100% + 0.25em));
+  }
+}
+
+/* An empty gap in the line; the film layer opens inside it. */
+.slot {
+  display: inline-block;
+  height: 0.9em;
+  vertical-align: -0.06em;
+  aspect-ratio: 2.39 / 1;
+  margin-right: 0.2em;
+}
+
+/* The logo's crossbar arc, drawn under the key word */
+.mark {
+  position: relative;
+  display: inline-block;
+}
+
+.arc {
+  position: absolute;
+  left: -0.02em;
+  bottom: -0.3em;
+  z-index: -1;
+  width: calc(100% + 0.14em);
+  height: auto;
+  overflow: visible;
+}
+
+.arcPath {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: arc-draw 850ms var(--ease-out) 1150ms backwards;
+}
+
+.arcHalo,
+.arcDot {
+  opacity: var(--dot-opacity);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dot-in 400ms var(--ease-out) 1850ms backwards;
+}
+
+.arcHalo {
+  fill: var(--color-glow);
+  --dot-opacity: 0.7;
+}
+
+.arcDot {
+  fill: var(--color-accent);
+  --dot-opacity: 1;
+}
+
+@keyframes arc-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes dot-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+.lead {
+  display: grid;
+  /* The headline keeps its natural width; the aside takes what is left. */
+  grid-template-columns: auto minmax(16rem, 1fr);
+  align-items: end;
+  gap: var(--space-2xl);
+  margin-block: auto;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  justify-self: end;
+  max-width: 26rem;
+  gap: var(--space-lg);
+  /* Sit the buttons on the headline's baseline, not its descender line. */
+  padding-bottom: calc(var(--text-display) * 0.16);
+}
+
+.lede {
+  margin: 0;
+  font-size: var(--text-lede);
+  line-height: 1.5;
+  color: var(--color-neutral);
+  animation: rise 650ms var(--ease-out) 750ms backwards;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  animation: rise 650ms var(--ease-out) 850ms backwards;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.primary,
+.secondary,
+.onFilm {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  height: 3rem;
+  padding: 0 1.375rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-short) var(--ease-out),
+    border-color var(--dur-short) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+
+.primary {
+  background: var(--color-accent);
+  color: var(--color-on-night);
+  border: var(--rule-hair) solid var(--color-accent);
+}
+
+.primary:hover {
+  background: var(--color-accent-deep);
+  border-color: var(--color-accent-deep);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--color-ink);
+  border: var(--rule-hair) solid var(--color-rule);
+}
+
+.secondary:hover {
+  border-color: var(--color-ink);
+}
+
+.primary:active,
+.secondary:active,
+.onFilm:active {
+  transform: translateY(1px);
+}
+
+.primary:focus-visible,
+.secondary:focus-visible,
+.onFilm:focus-visible,
+.close:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.play {
+  flex: none;
+  width: 0.625rem;
+  height: 0.75rem;
+  color: var(--color-accent);
+}
+
+/* Proof: the real figures, large enough to read at a glance. */
+.proof {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-md) var(--space-2xl);
+  padding-top: var(--space-md);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  animation: rise 650ms var(--ease-out) 1000ms backwards;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md) var(--space-3xl);
+  margin: 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.stat dd {
+  order: -1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-stat);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Reserves the final figure's width, so the row doesn't shift while counting. */
+.stat dd::after {
+  content: attr(data-final);
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.stat dt,
+.place {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-neutral);
+}
+
+.place {
+  margin: 0;
+}
+
+/* ---------- Film ---------- */
+
+/* Clipped to the slot at rest. During the intro the clip starts as a thin
+   line drawn left to right (--intro-x), then opens to the strip (--intro-y).
+   On scroll (--p) it opens to the whole stage. */
+.film {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  visibility: hidden;
+  background: var(--color-scrim);
+  clip-path: inset(
+    calc(
+        (var(--slot-top) + (var(--slot-h) / 2 - 1px) * (1 - var(--intro-y))) *
+          (1 - var(--p))
+      )
+      calc(
+        (var(--slot-right) + var(--slot-w) * (1 - var(--intro-x))) *
+          (1 - var(--p))
+      )
+      calc(
+        (var(--slot-bottom) + (var(--slot-h) / 2 - 1px) * (1 - var(--intro-y))) *
+          (1 - var(--p))
+      )
+      calc(var(--slot-left) * (1 - var(--p)))
+      round calc(var(--radius-film) * (1 - var(--p)))
+  );
+}
+
+.stage[data-ready="true"] .film {
+  visibility: visible;
+}
+
+/* The drawn line is brand blue; it fades as the strip opens onto the film. */
+.film::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--color-accent);
+  opacity: calc(1 - var(--intro-y));
+}
+
+.loop {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: 50% 50%;
+  transform: translate(
+      calc(var(--slot-dx) * (1 - var(--p))),
+      calc(var(--slot-dy) * (1 - var(--p)))
+    )
+    scale(calc(var(--slot-scale) + (1 - var(--slot-scale)) * var(--p)));
+}
+
+.film::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  height: 55%;
+  background: linear-gradient(
+    to top,
+    color-mix(in oklch, var(--color-scrim) 78%, transparent),
+    transparent
+  );
+  opacity: clamp(0, calc((var(--p) - 0.8) * 5), 1);
+}
+
+/* Hand-off: the film dims fast to a backdrop for the brand statement, then sinks
+   fully into the night ground the page below begins on. */
+.nightfall {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--color-night);
+  opacity: calc(
+    clamp(0, calc(var(--q) / 0.3), 1) * 0.82 +
+      clamp(0, calc((var(--q) - 0.88) / 0.12), 1) * 0.18
+  );
+}
+
+.filmCaption {
+  position: absolute;
+  z-index: 3;
+  right: var(--gutter);
+  bottom: var(--space-xl);
+  left: var(--gutter);
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  color: var(--color-on-film);
+  opacity: calc(
+    clamp(0, calc((var(--p) - 0.82) * 5.5), 1) *
+      clamp(0, calc(1 - var(--q) * 8), 1)
+  );
+  visibility: hidden;
+}
+
+.stage[data-phase="open"] .filmCaption {
+  visibility: visible;
+}
+
+.filmText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  max-width: 38ch;
+  margin: 0;
+  font-size: var(--text-lede);
+  line-height: 1.45;
+}
+
+.filmLabel {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-glow);
+}
+
+.onFilm {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border: var(--rule-hair) solid var(--color-paper);
+}
+
+.onFilm:hover {
+  background: var(--color-paper-2);
+}
+
+/* ---------- Brand statement ---------- */
+
+/* Over the darkening film: the name, enormous, rises letter by letter; then
+   the tagline is signed underneath with the logo's arc. Each part's progress
+   runs 0 → 1 across its own slice of --q; scrolling back reverses it. */
+.brand {
+  position: absolute;
+  z-index: 3;
+  inset: 0 var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--color-on-night);
+  pointer-events: none;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Sized by JS so the widest line fills the width exactly. */
+.brandName {
+  width: max-content;
+  max-width: none;
+  margin: 0;
+  font-family: var(--font-logo);
+  font-size: 10vw;
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.brandWord {
+  display: inline-block;
+  clip-path: inset(-0.2em -0.1em 0 -0.1em);
+}
+
+.brandWord + .brandWord {
+  margin-left: 0.28em;
+}
+
+.letter {
+  --r: clamp(0, calc((var(--q) - 0.05 - var(--i) * 0.025) / 0.15), 1);
+  display: inline-block;
+  transform: translateY(calc((1 - var(--r)) * (100% + 0.2em)));
+}
+
+.signature {
+  --rs: clamp(0, calc((var(--q) - 0.5) / 0.2), 1);
+  --rt: clamp(0, calc((var(--q) - 0.58) / 0.17), 1);
+  --rd: clamp(0, calc((var(--q) - 0.68) / 0.07), 1);
+  display: flex;
+  justify-content: flex-end;
+  margin: var(--space-xl) 0 0;
+}
+
+.signatureText {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.3vw + 0.6rem, 1.875rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-on-night);
+  /* Leaves room for the arc's dot past the full stop. */
+  margin-right: 0.9em;
+  opacity: var(--rt);
+  transform: translateY(calc((1 - var(--rt)) * 10px));
+}
+
+.signatureArc {
+  position: absolute;
+  left: -0.4em;
+  bottom: -1.05em;
+  width: calc(100% + 1.3em);
+  height: auto;
+  overflow: visible;
+  opacity: 1;
+  transform: none;
+}
+
+.sigPath {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--rs));
+}
+
+.sigHalo,
+.sigDot {
+  opacity: var(--rd);
+}
+
+.sigHalo {
+  fill: var(--color-glow);
+  fill-opacity: 0.45;
+}
+
+.sigDot {
+  fill: var(--color-glow);
+}
+
+/* ---------- Intro skip ---------- */
+
+/* Any scroll, key or tap during the intro jumps everything to its end state. */
+.stage[data-intro="done"],
+.stage[data-intro="done"] :is(.line, .lineInner, .lede, .actions, .proof, .arcPath, .arcHalo, .arcDot) {
+  animation: none;
+}
+
+/* ---------- Full film dialog ---------- */
+
+.dialog {
+  width: min(92vw, 1280px);
+  max-width: none;
+  max-height: 92svh;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-film);
+  background: var(--color-scrim);
+  overflow: hidden;
+}
+
+.dialog[open] {
+  animation: dialog-in var(--dur-long) var(--ease-out);
+}
+
+.dialog::backdrop {
+  background: color-mix(in oklch, var(--color-scrim) 90%, transparent);
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.full {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--color-scrim);
+}
+
+.close {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: 1;
+  height: 2.25rem;
+  padding: 0 var(--space-md);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ---------- Responsive ---------- */
+
+/* Tablet widths and short laptop windows: the headline keeps its width with
+   the buttons stacked beside it, and the lede runs full width underneath,
+   so the whole hero (proof row included) fits on the first screen. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .lead {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "title actions"
+      "lede lede";
+    row-gap: var(--space-lg);
+  }
+
+  .title {
+    grid-area: title;
+  }
+
+  .aside {
+    display: contents;
+  }
+
+  .lede {
+    grid-area: lede;
+    max-width: 62ch;
+  }
+
+  .actions {
+    grid-area: actions;
+    flex-direction: column;
+    align-items: flex-end;
+    align-self: end;
+    padding-bottom: calc(var(--text-display) * 0.16);
+  }
+}
+
+@media (min-width: 768px) and (max-height: 560px) {
+  .copy {
+    gap: var(--space-md);
+    padding-top: calc(var(--space-3xl) + var(--space-2xs));
+  }
+}
+
+@media (max-width: 767px) {
+  .lead {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-xl);
+  }
+
+  .aside {
+    max-width: 34rem;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .copy {
+    padding-top: calc(var(--space-3xl) + var(--space-md));
+  }
+
+  /* The arc scales with the word; keep the line and dot visible when small. */
+  .arcPath {
+    stroke-width: 6;
+  }
+
+  .arcDot {
+    r: 8;
+  }
+
+  .arcHalo {
+    r: 16;
+  }
+
+  .lead {
+    gap: var(--space-lg);
+  }
+
+  /* Three figures in one row; long labels wrap under their number. */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .aside {
+    justify-self: start;
+  }
+
+  .filmCaption {
+    flex-direction: column;
+    align-items: start;
+    bottom: var(--space-lg);
+  }
+
+  /* Stack the two words so the name can be larger on a narrow screen. */
+  .brandWord {
+    display: block;
+  }
+
+  .brandWord + .brandWord {
+    margin-left: 0;
+  }
+
+  .signature {
+    justify-content: flex-start;
+  }
+}
+
+/* Short phones: the lede already carries the year. */
+@media (max-width: 767px) and (max-height: 700px) {
+  .place {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    height: auto;
+  }
+
+  .stage {
+    position: relative;
+    height: auto;
+  }
+
+  .copy {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  /* No scroll-driven reveal: the statement sits as a still night band. */
+  .brand {
+    --q: 1;
+    position: relative;
+    inset: auto;
+    padding: var(--space-3xl) var(--gutter);
+    background: var(--color-night);
+  }
+
+  .stage,
+  .line,
+  .lineInner,
+  .lede,
+  .actions,
+  .proof,
+  .arcPath,
+  .arcHalo,
+  .arcDot {
+    animation: none;
+  }
+
+  .dialog[open] {
+    animation-duration: 150ms;
+  }
+
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+    }
+  }
+}

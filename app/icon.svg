@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="l" x1="32" y1="6" x2="10" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9ae6ff"/>
+      <stop offset=".55" stop-color="#3d9bff"/>
+      <stop offset="1" stop-color="#2560f0"/>
+    </linearGradient>
+    <linearGradient id="r" x1="40" y1="14" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2f78ff"/>
+      <stop offset="1" stop-color="#1340b5"/>
+    </linearGradient>
+    <linearGradient id="t" x1="20" y1="0" x2="56" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3d9bff" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#7cc4ff"/>
+      <stop offset="1" stop-color="#c9f1ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#04060a"/>
+  <!-- The logo mark, scaled into the tile -->
+  <g transform="translate(5 5) scale(0.88)">
+    <path d="M19 45.5C29 39.8 44 36.6 62.5 37.4" fill="none" stroke="url(#t)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M30 2h7L15.2 58H2z" fill="url(#l)"/>
+    <path d="M40.6 10.2 62 58h-8.8L36.9 21.4z" fill="url(#r)"/>
+    <circle cx="62.6" cy="37.4" r="2.2" fill="#d6f5ff"/>
+  </g>
+</svg>

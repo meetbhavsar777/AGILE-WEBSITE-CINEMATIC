@@ -1,0 +1,16 @@
+/* Hallmark · the one gradient on the site: night → deep logo blue, two colours, interpolated in OKLCH */
+
+.surface {
+  position: relative;
+  color: var(--color-on-night);
+  background: linear-gradient(
+    in oklch 180deg,
+    var(--color-night),
+    var(--color-accent-deep)
+  );
+}
+
+.surface ::selection {
+  background: var(--color-glow);
+  color: var(--color-night);
+}

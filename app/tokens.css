@@ -1,0 +1,68 @@
+/* Hallmark · genre: modern-minimal · theme: custom (vibe: "calibrated daylight lab, one cobalt signal")
+ * palette taken from the Agile SciTech logo: paper = wordmark white #eef2f8 · ink = logo ground #04060a
+ * accent = mark blue #2560f0 (deep #1340b5, bright #3d9bff) · glow = mark tip #9ae6ff
+ * display+body: Host Grotesk · labels: IBM Plex Mono · wordmark: Sora (logo only)
+ * axes: light / grotesk-sans / cool
+ */
+:root {
+  /* Colour — surfaces and text */
+  --color-paper: oklch(96% 0.009 258);
+  --color-paper-2: oklch(92.5% 0.012 258);
+  --color-rule: oklch(86% 0.014 258);
+  --color-grid: oklch(16% 0.02 262 / 0.05);
+  --color-neutral: oklch(48% 0.025 258);
+  --color-ink: oklch(16% 0.02 262);
+  --color-ink-2: oklch(26% 0.03 262);
+
+  /* Colour — brand, from the logo mark */
+  --color-accent: oklch(54.5% 0.225 264);
+  --color-accent-deep: oklch(42.7% 0.191 264);
+  --color-accent-bright: oklch(68.2% 0.172 253);
+  --color-glow: oklch(88.4% 0.082 221);
+  --color-focus: oklch(60.6% 0.214 261);
+
+  /* Colour — dark ground (logo background, film) */
+  --color-night: oklch(12.1% 0.012 259);
+  --color-night-rule: oklch(30% 0.02 258);
+  --color-on-night: oklch(96% 0.009 258);
+  --color-on-night-muted: oklch(75.2% 0.039 257);
+  --color-on-film: var(--color-on-night);
+  --color-scrim: var(--color-night);
+
+  /* Type */
+  --font-display: var(--font-host-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-host-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-label: var(--font-plex-mono), ui-monospace, monospace;
+  --font-logo: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --text-label: 0.75rem;
+  --text-body: 1.0625rem;
+  --text-lede: clamp(1.0625rem, 0.35vw + 1rem, 1.25rem);
+  /* Tracks height too, so the whole hero fits short laptop screens. */
+  --text-display: clamp(2.25rem, min(5.6vw + 0.4rem, 11svh), 5.5rem);
+  --text-stat: clamp(1.75rem, min(1.8vw + 1rem, 6svh), 2.75rem);
+
+  /* Space (4 pt) */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4.5rem;
+  --gutter: clamp(1rem, 4vw, 3.5rem);
+
+  /* Shape */
+  --rule-hair: 1px;
+  --radius-sm: 6px;
+  --radius-film: 14px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+}
