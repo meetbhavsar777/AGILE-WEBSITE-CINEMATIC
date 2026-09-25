@@ -27,9 +27,11 @@ function Case({
   interval = 1000,
 }: CaseProps) {
   const [api, setApi] = useState<CarouselApi>();
+  // Auto-advance stops while the strip is hovered or focused (WCAG 2.2.2).
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (!api) {
+    if (!api || paused) {
       return;
     }
 
@@ -42,7 +44,7 @@ function Case({
     const timer = setInterval(() => api.scrollNext(), interval);
 
     return () => clearInterval(timer);
-  }, [api, interval]);
+  }, [api, interval, paused]);
 
   return (
     <div className="w-full pt-12 pb-20 lg:pt-16 lg:pb-40">
@@ -56,6 +58,10 @@ function Case({
             opts={{ loop: true, align: "start" }}
             className="w-full"
             aria-label="Client logos"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocusCapture={() => setPaused(true)}
+            onBlurCapture={() => setPaused(false)}
           >
             <CarouselContent>
               {logos.map((logo) => (
