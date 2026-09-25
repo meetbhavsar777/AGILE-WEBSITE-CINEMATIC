@@ -298,7 +298,7 @@ export function FilmHero() {
                   aria-haspopup="dialog"
                 >
                   <PlayGlyph />
-                  <RollText>{`Watch the film · ${FILM.duration}`}</RollText>
+                  <RollText>{`Watch the film (${FILM.duration})`}</RollText>
                 </button>
               </div>
             </div>
@@ -318,7 +318,7 @@ export function FilmHero() {
                 </div>
               ))}
             </dl>
-            <p className={styles.place}>Ahmedabad, Gujarat · Since 2013</p>
+            <p className={styles.place}>Based in Ahmedabad, Gujarat</p>
           </div>
         </div>
 
@@ -359,7 +359,7 @@ export function FilmHero() {
             aria-haspopup="dialog"
           >
             <PlayGlyph />
-            <RollText>{`Watch with sound · ${FILM.duration}`}</RollText>
+            <RollText>{`Watch the film (${FILM.duration})`}</RollText>
           </button>
         </div>
 
