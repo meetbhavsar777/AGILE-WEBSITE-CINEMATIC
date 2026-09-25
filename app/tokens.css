@@ -2,6 +2,7 @@
  * palette taken from the Agile SciTech logo: paper = wordmark white #eef2f8 · ink = logo ground #04060a
  * accent = mark blue #2560f0 (deep #1340b5, bright #3d9bff) · glow = mark tip #9ae6ff
  * display+body: Host Grotesk · wordmark: Sora (logo + brand statement only)
+ * type scale: perfect fourth (1.333) on 16px: 16 · 21 · 28 · 38 · 50 · 67 · 88, plus 14 for small UI text
  * axes: light / grotesk-sans / cool
  */
 :root {
@@ -33,11 +34,11 @@
   --font-body: var(--font-host-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-logo: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
   --text-small: 0.875rem;
-  --text-body: 1.0625rem;
-  --text-lede: clamp(1.0625rem, 0.35vw + 1rem, 1.25rem);
+  --text-body: 1rem;
+  --text-lede: clamp(1.0625rem, 0.35vw + 1rem, 1.3125rem);
   /* Tracks height too, so the whole hero fits short laptop screens. */
   --text-display: clamp(2.25rem, min(5.6vw + 0.4rem, 11svh), 5.5rem);
-  --text-stat: clamp(1.75rem, min(1.8vw + 1rem, 6svh), 2.75rem);
+  --text-stat: clamp(1.75rem, min(1.4vw + 1rem, 6svh), 2.375rem);
 
   /* Space (4 pt) */
   --space-2xs: 0.25rem;
