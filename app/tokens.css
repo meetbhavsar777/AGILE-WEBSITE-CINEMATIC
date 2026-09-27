@@ -47,7 +47,6 @@
   --font-display: var(--font-host-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-host-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-logo: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
   --text-small: 0.875rem;
   --text-body: 1rem;
   --text-lede: clamp(1.0625rem, 0.35vw + 1rem, 1.3125rem);

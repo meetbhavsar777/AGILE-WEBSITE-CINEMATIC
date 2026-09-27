@@ -1,19 +1,10 @@
 import type { Metadata } from "next";
-import { Host_Grotesk, Newsreader, Sora } from "next/font/google";
+import { Host_Grotesk, Sora } from "next/font/google";
 import "./globals.css";
 
 const hostGrotesk = Host_Grotesk({
   variable: "--font-host-grotesk",
   subsets: ["latin"],
-});
-
-// An upright book serif for section intros.
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
-  subsets: ["latin"],
-  weight: "variable",
-  style: ["normal"],
-  axes: ["opsz"],
 });
 
 // The logo wordmark is set in Sora; used only inside <Logo>.
@@ -33,7 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${hostGrotesk.variable} ${newsreader.variable} ${sora.variable} h-full antialiased`}
+      className={`${hostGrotesk.variable} ${sora.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

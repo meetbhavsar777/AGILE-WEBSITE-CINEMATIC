@@ -33,41 +33,38 @@
   transform-origin: 0 100%;
 }
 
-/* Intro: one low strip. On wide screens the label, a white serif
-   headline and the ice-blue paragraph share a single row; spacing, not
-   rules, separates them. Narrower screens stack them. */
+/* Intro */
 
 .intro {
   display: grid;
-  gap: var(--space-md);
-  padding: var(--space-2xl) var(--gutter);
+  gap: var(--space-lg);
+  padding: var(--space-3xl) var(--gutter) var(--space-2xl);
 }
 
 .eyebrow {
   margin: 0;
   font-size: var(--text-small);
   font-weight: 500;
-  color: var(--color-accent-bright);
+  color: var(--color-glow);
 }
 
 .introTitle {
   margin: 0;
   min-width: 0;
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 2.4vw + 0.75rem, 3.25rem);
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.2vw + 0.5rem, 4.75rem);
   font-weight: 400;
   line-height: 1.02;
-  letter-spacing: -0.02em;
-  color: var(--color-on-night);
+  letter-spacing: -0.04em;
   overflow-wrap: anywhere;
 }
 
 .introBody {
   margin: 0;
-  max-width: 40ch;
-  font-size: clamp(1rem, 0.35vw + 0.85rem, 1.1875rem);
-  line-height: 1.6;
-  color: var(--color-glow);
+  max-width: 36ch;
+  font-size: var(--text-lede);
+  line-height: 1.55;
+  color: var(--color-on-night-muted);
   text-wrap: pretty;
 }
 
@@ -392,32 +389,24 @@
   }
 }
 
-/* Tablet: headline and paragraph side by side, the label above. */
+/* Tablet and up: the intro splits into two columns. */
 @media (min-width: 768px) {
   .intro {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     column-gap: var(--space-2xl);
     align-items: end;
+    padding-top: calc(var(--space-3xl) * 1.5);
+    padding-bottom: var(--space-3xl);
   }
 
   .eyebrow {
     grid-column: 1 / -1;
   }
-}
 
-/* Wide screens: the whole intro is one row. */
-@media (min-width: 1024px) {
-  .intro {
-    grid-template-columns: minmax(0, 2fr) minmax(0, 5fr) minmax(0, 5fr);
-    align-items: end;
-    padding-block: var(--space-2xl);
+  .introBody {
+    justify-self: end;
   }
 
-  .eyebrow {
-    grid-column: auto;
-    align-self: start;
-    padding-top: 0.5rem;
-  }
 }
 
 /* Landscape screens: the card is the photo's own 3:2 shape. */
