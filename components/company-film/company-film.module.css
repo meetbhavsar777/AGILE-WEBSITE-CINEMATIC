@@ -1,0 +1,191 @@
+/* Hallmark · COMPANY FILM · genre: modern-minimal · theme: custom (logo palette)
+ * One frame that opens as you scroll: small and centred when the stage
+ * pins, nearly full width by the time it settles. --p (0 → 1) is set by
+ * the script. One family (Host Grotesk).
+ */
+
+.section {
+  color: var(--color-ink);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-3xl) var(--gutter) 0;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.4vw + 0.4rem, 6rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+/* The runway gives the frame room to grow; the stage pins while it does. */
+/* Pulled up so the small frame starts close under the heading. */
+.runway {
+  --p: 0;
+  position: relative;
+  height: 190svh;
+  margin-top: -20svh;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+  height: 100svh;
+  padding: 5rem var(--gutter) var(--space-xl);
+  overflow: clip;
+}
+
+/* Full size is the widest 16:9 frame that fits the stage; it starts at 42%
+   of that and eases up to 100%. The radius shrinks as it grows, so the
+   corners look the same on screen at every size. */
+.frame {
+  --full-w: min(100%, calc((100svh - 7rem) * 16 / 9));
+  --s: calc(0.42 + var(--p) * 0.58);
+  position: relative;
+  width: var(--full-w);
+  aspect-ratio: 16 / 9;
+  border-radius: calc(clamp(14px, 1.6vw, 24px) / var(--s));
+  overflow: clip;
+  background: var(--color-night);
+  box-shadow: 0 2rem 5rem -2rem color-mix(in oklch, var(--color-night) 55%, transparent);
+  transform: scale(var(--s));
+  will-change: transform;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The whole frame is the play button. A small, see-through black play
+   icon (like a video player's) sits in the middle and fades in once the
+   frame has grown to full size. It counter-scales, so it stays one size. */
+.play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.play:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -4px;
+  border-radius: inherit;
+}
+
+.close:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.playDisc {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-pill);
+  background: color-mix(in oklch, var(--color-night) 55%, transparent);
+  color: var(--color-on-night);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: clamp(0, calc((var(--p) - 0.9) * 10), 1);
+  transform: scale(calc(1 / var(--s)));
+  transition: background-color var(--dur-short) var(--ease-out);
+}
+
+.playDisc svg {
+  width: 0.875rem;
+  height: 1rem;
+  margin-left: 0.1875rem;
+}
+
+.play:hover .playDisc,
+.play:focus-visible .playDisc {
+  background: color-mix(in oklch, var(--color-night) 78%, transparent);
+}
+
+/* The full film */
+.dialog {
+  width: min(92vw, 80rem);
+  max-width: none;
+  padding: 0;
+  border: 0;
+  border-radius: clamp(12px, 1.4vw, 20px);
+  background: var(--color-night);
+  overflow: clip;
+}
+
+.dialog::backdrop {
+  background: color-mix(in oklch, var(--color-night) 85%, transparent);
+}
+
+.fullVideo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--color-night);
+}
+
+.close {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  height: 2.5rem;
+  padding: 0 var(--space-md);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: color-mix(in oklch, var(--color-night) 70%, transparent);
+  color: var(--color-on-night);
+  font: inherit;
+  font-size: var(--text-small);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .runway {
+    height: 170svh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .runway {
+    height: auto;
+    margin-top: 0;
+  }
+
+  .stage {
+    position: static;
+    height: auto;
+    padding-block: var(--space-2xl) calc(var(--space-3xl) * 1.5);
+  }
+
+  .playDisc {
+    opacity: 1;
+  }
+}
