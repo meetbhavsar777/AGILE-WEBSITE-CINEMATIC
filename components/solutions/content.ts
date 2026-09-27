@@ -39,7 +39,7 @@ export const solutions: Solution[] = [
     id: "molecular-imaging",
     name: "Molecular & imaging",
     body: "Tools and systems for molecular analysis, imaging and advanced biological workflows.",
-    media: { ratio: 4 / 3 },
+    media: { ratio: 4 / 3, src: "/images/solutions/molecular-imaging.webp", alt: "An illustration of cells with pink nuclei floating in blue.", focus: "45% 50%" },
   },
   {
     id: "sample-preparation",
