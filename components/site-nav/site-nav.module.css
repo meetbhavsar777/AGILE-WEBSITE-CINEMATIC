@@ -1,4 +1,4 @@
-/* Hallmark · nav: N5 floating pill — set on the logo's own dark ground so the mark renders as drawn */
+/* Hallmark · nav: N5 floating pill, light, so the official navy-on-white logo renders as drawn */
 
 .wrap {
   position: fixed;
@@ -30,9 +30,9 @@
   align-items: center;
   gap: var(--space-lg);
   padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-md);
-  border: var(--rule-hair) solid var(--color-night-rule);
+  border: var(--rule-hair) solid color-mix(in oklch, var(--color-ink) 8%, transparent);
   border-radius: var(--radius-pill);
-  background: color-mix(in oklch, var(--color-night) 90%, transparent);
+  background: color-mix(in oklch, var(--color-day) 94%, transparent);
   backdrop-filter: blur(14px) saturate(120%);
   box-shadow: 0 10px 30px -14px color-mix(in oklch, var(--color-night) 55%, transparent);
 }
@@ -45,7 +45,7 @@
 .logo {
   display: block;
   width: auto;
-  height: 2.375rem;
+  height: 2.75rem;
 }
 
 .links {
@@ -58,14 +58,14 @@
 
 .link {
   font-size: 0.875rem;
-  color: var(--color-on-night-muted);
+  color: var(--color-neutral);
   text-decoration: none;
   white-space: nowrap;
   transition: color var(--dur-short) var(--ease-out);
 }
 
 .link:hover {
-  color: var(--color-on-night);
+  color: var(--color-ink);
 }
 
 .cta {
@@ -74,7 +74,7 @@
   height: 2.25rem;
   padding: 0 var(--space-md);
   border-radius: var(--radius-pill);
-  background: var(--color-accent);
+  background: var(--color-brand);
   color: var(--color-on-night);
   font-size: 0.875rem;
   font-weight: 500;
@@ -84,13 +84,13 @@
 }
 
 .cta:hover {
-  background: var(--color-accent-deep);
+  background: var(--color-brand-deep);
 }
 
 .home:focus-visible,
 .link:focus-visible,
 .cta:focus-visible {
-  outline: 2px solid var(--color-accent-bright);
+  outline: 2px solid var(--color-focus);
   outline-offset: 3px;
 }
 

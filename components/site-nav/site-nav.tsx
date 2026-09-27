@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Logo } from "@/components/brand/logo";
+import Image from "next/image";
 import { QUOTE_HREF, QUOTE_LABEL } from "@/lib/contact";
 import { RollText } from "@/components/film-hero/roll-text";
 import styles from "./site-nav.module.css";
@@ -17,7 +17,14 @@ export function SiteNav() {
     <header className={styles.wrap}>
       <nav className={styles.pill} aria-label="Primary">
         <Link className={styles.home} href="/" aria-label="Agile SciTech home">
-          <Logo id="nav-logo" className={styles.logo} />
+          <Image
+            className={styles.logo}
+            src="/brand/agile-scitech-logo.png"
+            alt="Agile SciTech"
+            width={544}
+            height={288}
+            priority
+          />
         </Link>
         <ul className={styles.links}>
           {LINKS.map((link) => (
