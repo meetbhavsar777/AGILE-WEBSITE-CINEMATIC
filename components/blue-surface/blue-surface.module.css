@@ -1,12 +1,64 @@
-/* Hallmark · the one gradient on the site: night → deep logo blue, two colours, interpolated in OKLCH */
+/* Hallmark · the one gradient on the site: the page rises from the logo's
+   night through its blues to white, like altitude through the sky.
+   Interpolated in OKLCH; every stop is a logo colour. */
 
 .surface {
   position: relative;
   color: var(--color-on-night);
   background: linear-gradient(
     in oklch 180deg,
-    var(--color-night),
-    var(--color-accent-deep)
+    var(--color-night) 0%,
+    var(--color-accent-deep) 22%,
+    var(--color-accent) 42%,
+    var(--color-accent-bright) 60%,
+    var(--color-glow) 78%,
+    var(--color-day) 100%
+  );
+}
+
+/* Continues from a section that already ends on navy. The ramp eases in
+   and out (smoothstep, sampled at 13 stops along the same colour chain), so
+   it leaves the flat navy and arrives at white without a visible kink. */
+.surface[data-from="navy"] {
+  background: linear-gradient(
+    in oklch 180deg,
+    var(--color-navy) 0.0%,
+    color-mix(in oklch, var(--color-navy) 90%, var(--color-accent-deep)) 8.3%,
+    color-mix(in oklch, var(--color-navy) 63%, var(--color-accent-deep)) 16.7%,
+    color-mix(in oklch, var(--color-navy) 22%, var(--color-accent-deep)) 25.0%,
+    color-mix(in oklch, var(--color-accent-deep) 70%, var(--color-accent)) 33.3%,
+    color-mix(in oklch, var(--color-accent-deep) 12%, var(--color-accent)) 41.7%,
+    color-mix(in oklch, var(--color-accent) 50%, var(--color-accent-bright)) 50.0%,
+    color-mix(in oklch, var(--color-accent-bright) 88%, var(--color-glow)) 58.3%,
+    color-mix(in oklch, var(--color-accent-bright) 30%, var(--color-glow)) 66.7%,
+    color-mix(in oklch, var(--color-glow) 78%, var(--color-day)) 75.0%,
+    color-mix(in oklch, var(--color-glow) 37%, var(--color-day)) 83.3%,
+    color-mix(in oklch, var(--color-glow) 10%, var(--color-day)) 91.7%,
+    var(--color-day) 100.0%
+  );
+}
+
+/* The whole journey in one surface: night at the clients strip, through
+   the logo blues, to white by the end. Eased (smoothstep, 15 stops) so it
+   leaves the night and settles into white without a visible kink. */
+.surface[data-from="night-to-day"] {
+  background: linear-gradient(
+    in oklch 180deg,
+    var(--color-night) 0.0%,
+    color-mix(in oklch, var(--color-night) 91%, var(--color-navy)) 7.1%,
+    color-mix(in oklch, var(--color-night) 67%, var(--color-navy)) 14.3%,
+    color-mix(in oklch, var(--color-night) 29%, var(--color-navy)) 21.4%,
+    color-mix(in oklch, var(--color-navy) 81%, var(--color-accent-deep)) 28.6%,
+    color-mix(in oklch, var(--color-navy) 25%, var(--color-accent-deep)) 35.7%,
+    color-mix(in oklch, var(--color-accent-deep) 64%, var(--color-accent)) 42.9%,
+    var(--color-accent) 50.0%,
+    color-mix(in oklch, var(--color-accent) 36%, var(--color-accent-bright)) 57.1%,
+    color-mix(in oklch, var(--color-accent-bright) 75%, var(--color-glow)) 64.3%,
+    color-mix(in oklch, var(--color-accent-bright) 19%, var(--color-glow)) 71.4%,
+    color-mix(in oklch, var(--color-glow) 71%, var(--color-day)) 78.6%,
+    color-mix(in oklch, var(--color-glow) 33%, var(--color-day)) 85.7%,
+    color-mix(in oklch, var(--color-glow) 9%, var(--color-day)) 92.9%,
+    var(--color-day) 100.0%
   );
 }
 
