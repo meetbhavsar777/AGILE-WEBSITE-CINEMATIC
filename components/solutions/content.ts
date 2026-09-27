@@ -27,7 +27,7 @@ export const solutions: Solution[] = [
     id: "bioprocessing",
     name: "Bioprocessing",
     body: "Integrated technologies for upstream, downstream and bioprocess applications.",
-    media: { ratio: 4 / 3 },
+    media: { ratio: 4 / 3, src: "/images/solutions/bioprocessing.webp", alt: "A glowing blue DNA double helix on a dark background.", focus: "50% 40%" },
   },
   {
     id: "life-science",
