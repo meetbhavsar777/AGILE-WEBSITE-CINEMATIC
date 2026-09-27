@@ -9,6 +9,7 @@
   /* Colour — surfaces and text */
   --color-paper: oklch(96% 0.009 258);
   --color-paper-2: oklch(92.5% 0.012 258);
+  --color-day: oklch(99.5% 0.003 258);
   --color-rule: oklch(86% 0.014 258);
   --color-grid: oklch(16% 0.02 262 / 0.05);
   --color-neutral: oklch(48% 0.025 258);
@@ -20,10 +21,15 @@
   --color-accent-deep: oklch(42.7% 0.191 264);
   --color-accent-bright: oklch(68.2% 0.172 253);
   --color-glow: oklch(88.4% 0.082 221);
+  /* The blue of the official logo artwork (#243f82): used for the quote buttons. */
+  --color-brand: oklch(38.6% 0.118 265);
+  --color-brand-deep: oklch(31% 0.1 265);
   --color-focus: oklch(60.6% 0.214 261);
 
   /* Colour — dark ground (logo background, film) */
   --color-night: oklch(12.1% 0.012 259);
+  /* The deep navy the page passes through between night and the logo blue. */
+  --color-navy: color-mix(in oklch, var(--color-night) 60%, var(--color-accent-deep));
   --color-night-rule: oklch(30% 0.02 258);
   --color-on-night: oklch(96% 0.009 258);
   --color-on-night-muted: oklch(75.2% 0.039 257);
