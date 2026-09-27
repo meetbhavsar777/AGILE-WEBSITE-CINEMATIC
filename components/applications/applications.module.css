@@ -1,0 +1,180 @@
+/* Hallmark · APPLICATIONS · genre: modern-minimal · theme: custom (logo palette)
+ * Large names in ruled rows on white. The pointed-at row goes ink, slides
+ * in behind the accent bar, and its photo floats beside the cursor; the
+ * other rows fade back. One family (Host Grotesk).
+ */
+
+.section {
+  padding: var(--space-3xl) var(--gutter);
+  color: var(--color-ink);
+}
+
+.header {
+  margin-bottom: var(--space-2xl);
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-lg);
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.4vw + 0.4rem, 5rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.titleLine {
+  display: block;
+}
+
+.list {
+  position: relative;
+}
+
+.rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: var(--rule-hair) solid color-mix(in oklch, var(--color-ink) 12%, transparent);
+}
+
+.row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: clamp(0.875rem, 1.6vw, 1.5rem) 0;
+  border-top: var(--rule-hair) solid color-mix(in oklch, var(--color-ink) 12%, transparent);
+}
+
+.name {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 3.4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  transition:
+    color var(--dur-short) var(--ease-out),
+    transform var(--dur-long) var(--ease-out);
+}
+
+/* The same accent bar the capability list and solutions use. */
+.name::before {
+  content: "";
+  position: absolute;
+  left: -0.9em;
+  top: 55%;
+  width: 0.55em;
+  height: 0.06em;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-long) var(--ease-out);
+}
+
+.list[data-active] .name {
+  color: color-mix(in oklch, var(--color-ink) 30%, transparent);
+}
+
+.list[data-active] .row[data-on] .name {
+  color: var(--color-ink);
+  transform: translateX(0.9em);
+}
+
+.row[data-on] .name::before {
+  transform: scaleX(1);
+}
+
+/* Small photo per row: only where there is no hover (touch screens). */
+.thumb {
+  position: relative;
+  display: none;
+  flex: none;
+  width: 4.5rem;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-sm);
+  overflow: clip;
+}
+
+.thumb img {
+  object-fit: cover;
+}
+
+/* The floating photo, centred on the pointer. */
+.float {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.floatInner {
+  position: absolute;
+  left: 2rem;
+  top: -8rem;
+  width: clamp(16rem, 22vw, 22rem);
+  aspect-ratio: 4 / 3;
+  border-radius: clamp(12px, 1.2vw, 18px);
+  overflow: clip;
+  box-shadow: 0 1.5rem 3rem -1.5rem color-mix(in oklch, var(--color-night) 50%, transparent);
+  opacity: 0;
+  transform: scale(0.85) rotate(-3deg);
+  transition:
+    opacity var(--dur-long) var(--ease-out),
+    transform 600ms var(--ease-out);
+}
+
+.list[data-active] .floatInner {
+  opacity: 1;
+  transform: none;
+}
+
+.floatImage {
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.08);
+  transition:
+    opacity 350ms var(--ease-out),
+    transform 900ms var(--ease-out);
+}
+
+.floatImage[data-on] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: none) {
+  .thumb {
+    display: block;
+  }
+
+  .float {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .name,
+  .name::before,
+  .floatInner,
+  .floatImage {
+    transition: opacity var(--dur-short) linear;
+  }
+
+  .list[data-active] .row[data-on] .name,
+  .list[data-active] .floatInner,
+  .floatImage {
+    transform: none;
+  }
+}
