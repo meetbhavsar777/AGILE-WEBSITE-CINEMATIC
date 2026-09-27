@@ -55,27 +55,10 @@ export const chapters: Chapter[] = [
   },
 ];
 
-// Each capability with one plain sentence, shown when its line is lit.
-// Drawn from the brief's own wording; no claims beyond it.
 export const capabilities = [
-  {
-    name: "Process & technology engineering",
-    line: "Choosing and configuring the right instruments and systems around the way your process runs.",
-  },
-  {
-    name: "Facility planning & turnkey execution",
-    line: "Planning the lab or process space, then delivering the complete setup, ready to use.",
-  },
-  {
-    name: "Maintenance & technical support",
-    line: "Servicing, repairs and technical help that keep critical systems running reliably.",
-  },
-  {
-    name: "Compliance & qualification",
-    line: "Qualification assistance and documentation, so your systems are ready for regulated work.",
-  },
-  {
-    name: "Custom instrumentation & system engineering",
-    line: "Instruments and systems built or adapted for applications that standard products don't cover.",
-  },
+  "Process & technology engineering",
+  "Facility planning & turnkey execution",
+  "Maintenance & technical support",
+  "Compliance & qualification",
+  "Custom instrumentation & system engineering",
 ];
