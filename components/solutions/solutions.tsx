@@ -128,7 +128,7 @@ export function Solutions() {
         <p className={styles.lede}>{intro.body}</p>
       </header>
 
-      <div ref={storyRef} className={styles.story}>
+      <div ref={storyRef} className={styles.story} data-surface-hold>
         <div className={styles.stage}>
           <div ref={trackRef} className={styles.track}>
             {solutions.map((s) => (

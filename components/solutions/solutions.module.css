@@ -40,7 +40,7 @@
   max-width: 44ch;
   font-size: var(--text-lede);
   line-height: 1.6;
-  color: var(--color-on-night-muted);
+  color: var(--color-on-night);
   text-wrap: pretty;
 }
 
