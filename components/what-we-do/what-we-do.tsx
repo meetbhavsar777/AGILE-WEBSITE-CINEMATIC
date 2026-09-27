@@ -123,23 +123,30 @@ export function WhatWeDo() {
     };
 
     // Capability lines: full brightness at the middle of the screen, fading
-    // over a third of the screen either side.
+    // over a third of the screen either side. The line nearest the middle
+    // opens its sentence; opening moves the lines below, so a new line only
+    // takes over once it is clearly nearer the middle than the open one.
+    let active = -1;
     const light = () => {
       const mid = vh / 2;
-      let best = 0;
-      let bestLit = -1;
-      lines.forEach((line, i) => {
+      const off = lines.map((line) => {
         const r = line.getBoundingClientRect();
-        const lit = 1 - clamp01(Math.abs(r.top + r.height / 2 - mid) / (vh * 0.34));
+        return Math.abs(r.top + r.height / 2 - mid);
+      });
+      let best = 0;
+      lines.forEach((line, i) => {
+        const lit = 1 - clamp01(off[i] / (vh * 0.34));
         line.style.setProperty("--lit", lit.toFixed(3));
         // Sharper curve for the bar and the nudge: only the lit line moves.
         line.style.setProperty("--on", (lit ** 4).toFixed(3));
-        if (lit > bestLit) {
-          bestLit = lit;
-          best = i;
-        }
+        if (off[i] < off[best]) best = i;
       });
-      indexRef.current?.style.setProperty("--k", String(best));
+      if (active < 0 || (best !== active && off[best] < off[active] - vh * 0.08)) {
+        if (active >= 0) delete lines[active].dataset.active;
+        active = best;
+        lines[active].dataset.active = "";
+        indexRef.current?.style.setProperty("--k", String(active));
+      }
     };
 
     // Text state follows the real scroll position, so it is never late.
@@ -235,9 +242,18 @@ export function WhatWeDo() {
         </div>
         <ul className={styles.indexList}>
           {capabilities.map((c) => (
-            <li key={c} data-line>
+            <li key={c.name} data-line>
               <span className={styles.marker} aria-hidden="true" />
-              <span className={styles.lineText}>{c}</span>
+              <span className={styles.lineText}>
+                <span className={styles.lineName}>{c.name}</span>
+                {/* Opens under the lit line; always in the page for
+                    screen readers. */}
+                <span className={styles.more}>
+                  <span className={styles.moreInner}>
+                    <span className={styles.sentence}>{c.line}</span>
+                  </span>
+                </span>
+              </span>
             </li>
           ))}
         </ul>
