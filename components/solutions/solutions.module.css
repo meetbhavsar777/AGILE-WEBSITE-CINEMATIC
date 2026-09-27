@@ -1,0 +1,240 @@
+/* Hallmark · SOLUTIONS · genre: modern-minimal · theme: custom (logo palette, navy ground)
+ * A pinned sideways gallery: six tall photo cards glide left as the page
+ * scrolls down. WHAT WE DO stacks upward; this travels across, so the two
+ * never repeat each other. Type: one family (Host Grotesk).
+ */
+
+.section {
+  --card-h: min(72svh, 44rem);
+  color: var(--color-on-night);
+}
+
+/* Header, set like the WHAT WE DO intro so the two read as one system. */
+
+.header {
+  display: grid;
+  gap: var(--space-lg);
+  padding: var(--space-3xl) var(--gutter) var(--space-xl);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--color-glow);
+}
+
+.title {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.4vw + 0.4rem, 6rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  overflow-wrap: anywhere;
+}
+
+.lede {
+  margin: 0;
+  max-width: 44ch;
+  font-size: var(--text-lede);
+  line-height: 1.6;
+  color: var(--color-on-night-muted);
+  text-wrap: pretty;
+}
+
+.titleLine {
+  display: block;
+}
+
+.word {
+  display: inline-block;
+  vertical-align: top;
+  overflow: clip;
+  padding: 0.1em 0.05em 0.18em;
+  margin: -0.1em -0.05em -0.18em;
+}
+
+.wordInner {
+  display: inline-block;
+  transform-origin: 0 100%;
+}
+
+.header[data-ready] .wordInner {
+  transition: transform 1100ms var(--ease-out) calc(var(--w) * 60ms);
+}
+
+.header[data-ready] :is(.eyebrow, .lede) {
+  transition:
+    opacity 900ms var(--ease-out) 380ms,
+    transform 900ms var(--ease-out) 380ms;
+}
+
+.header[data-ready]:not([data-shown]) .wordInner {
+  transform: translate3d(0, 115%, 0) rotate(5deg);
+}
+
+.header[data-ready]:not([data-shown]) :is(.eyebrow, .lede) {
+  opacity: 0;
+  transform: translateY(0.75rem);
+}
+
+/* The runway (its height is set by the script) and the pinned stage. */
+
+/* Pull the runway up so the pinned cards sit just under the header,
+   not a half-screen of empty navy below it. */
+.story {
+  position: relative;
+  margin-top: calc((100svh - 3.5rem - var(--card-h)) / -2);
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: clip;
+  display: flex;
+  align-items: center;
+  padding-top: 3.5rem;
+}
+
+.track {
+  display: flex;
+  gap: clamp(1rem, 2vw, 2rem);
+  padding-inline: var(--gutter);
+  will-change: transform;
+}
+
+/* Tall photo cards; the words sit on the photo's foot. */
+.card {
+  position: relative;
+  flex: none;
+  height: var(--card-h);
+  aspect-ratio: 4 / 5;
+  border-radius: clamp(14px, 1.6vw, 24px);
+  overflow: clip;
+  background: color-mix(in oklch, var(--color-navy) 70%, var(--color-on-night));
+  box-shadow: 0 1.5rem 3rem -1.5rem color-mix(in oklch, var(--color-night) 70%, transparent);
+}
+
+.picture {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+}
+
+.picture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    color-mix(in oklch, var(--color-night) 85%, transparent) 0%,
+    color-mix(in oklch, var(--color-night) 35%, transparent) 38%,
+    transparent 62%
+  );
+}
+
+/* The picture is wider than its frame and drifts against the card's
+   travel, so the crop changes as it passes. */
+.media {
+  position: absolute;
+  inset: 0 -12%;
+  transform: translate3d(clamp(-9%, calc(var(--d, 0) * -12%), 9%), 0, 0);
+}
+
+.media img {
+  object-fit: cover;
+}
+
+.placeholder {
+  --mark: color-mix(in oklch, var(--color-on-night) 30%, transparent);
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--mark), var(--mark)) center 40% / var(--rule-hair) 1.25rem no-repeat,
+    linear-gradient(var(--mark), var(--mark)) center 40% / 1.25rem var(--rule-hair) no-repeat,
+    linear-gradient(160deg, color-mix(in oklch, var(--color-on-night) 8%, transparent), transparent 70%);
+}
+
+.text {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: clamp(var(--space-lg), 3vw, var(--space-2xl));
+}
+
+.name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, min(2.4vw + 0.4rem, 5svh), 2.75rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.body {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(0.9375rem, 0.3vw + 0.85rem, 1.0625rem);
+  line-height: 1.5;
+  color: color-mix(in oklch, var(--color-on-night) 85%, transparent);
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .header {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--space-2xl);
+    align-items: end;
+  }
+
+  .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .lede {
+    /* Start on a column line, and sit the last line of the paragraph on
+       the headline's baseline. */
+    justify-self: start;
+    padding-bottom: 0.1em;
+  }
+}
+
+/* Phones: narrower cards so the next one peeks in. */
+@media (max-width: 767px) {
+  .section {
+    --card-h: min(66svh, 34rem);
+  }
+
+  .header {
+    gap: var(--space-md);
+  }
+
+  .lede {
+    font-size: 1rem;
+    line-height: 1.55;
+    max-width: 34ch;
+  }
+
+  .card {
+    aspect-ratio: 3 / 4;
+    max-width: 82vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header[data-ready]:not([data-shown]) .wordInner,
+  .header[data-ready]:not([data-shown]) :is(.eyebrow, .lede) {
+    opacity: 1;
+    transform: none;
+  }
+
+  .media {
+    transform: none;
+  }
+}
