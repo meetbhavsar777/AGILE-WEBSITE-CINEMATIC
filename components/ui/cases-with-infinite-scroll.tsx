@@ -50,7 +50,10 @@ function Case({
     <div className="w-full pt-12 pb-20 lg:pt-16 lg:pb-40">
       <div className="container mx-auto px-4">
         <div className="flex flex-col gap-10">
-          <h2 className="text-xl md:text-3xl lg:text-5xl tracking-tighter lg:max-w-xl font-normal text-left">
+          <h2
+            className="text-xl md:text-3xl lg:text-5xl lg:max-w-xl font-normal text-left"
+            style={{ fontFamily: "var(--font-serif)", letterSpacing: "-0.02em" }}
+          >
             {heading}
           </h2>
           <Carousel
