@@ -139,9 +139,13 @@
 
   /* A slim, quiet page scrollbar instead of the heavy grey default: a thin
      rounded thumb in the logo blue at low strength, no arrows, no track. */
-  html {
-    scrollbar-width: thin;
-    scrollbar-color: color-mix(in oklch, var(--color-brand) 45%, transparent) transparent;
+  /* Firefox only: Chrome and Edge would draw their arrowed standard bar if
+     these were set, so they get the ::-webkit rules below instead. */
+  @supports (-moz-appearance: none) {
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: color-mix(in oklch, var(--color-brand) 45%, transparent) transparent;
+    }
   }
 
   ::-webkit-scrollbar {

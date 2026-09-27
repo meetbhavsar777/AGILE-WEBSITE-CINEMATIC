@@ -267,11 +267,14 @@ export function FilmHero() {
                 <span className={styles.line}>
                   <span className={styles.lineInner}>
                     Delivered with{" "}
-                    <span className={styles.mark}>
-                      precision
-                      <TrajectoryArc />
+                    {/* Kept with its full stop, so the stop never wraps alone. */}
+                    <span className={styles.nowrap}>
+                      <span className={styles.mark}>
+                        precision
+                        <TrajectoryArc />
+                      </span>
+                      .
                     </span>
-                    .
                   </span>
                 </span>
               </h1>
