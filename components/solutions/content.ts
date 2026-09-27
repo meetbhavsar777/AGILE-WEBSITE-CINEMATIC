@@ -33,7 +33,7 @@ export const solutions: Solution[] = [
     id: "life-science",
     name: "Life science",
     body: "Advanced technologies supporting research, analysis and laboratory workflows.",
-    media: { ratio: 4 / 3 },
+    media: { ratio: 4 / 3, src: "/images/solutions/life-science.webp", alt: "An illustration of glowing neurons connected in a network.", focus: "50% 45%" },
   },
   {
     id: "molecular-imaging",
