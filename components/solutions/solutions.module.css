@@ -136,6 +136,15 @@
   );
 }
 
+.picture[data-light]::after {
+  background: linear-gradient(
+    to top,
+    color-mix(in oklch, var(--color-night) 90%, transparent) 0%,
+    color-mix(in oklch, var(--color-night) 65%, transparent) 45%,
+    color-mix(in oklch, var(--color-night) 15%, transparent) 75%
+  );
+}
+
 /* The picture is wider than its frame and drifts against the card's
    travel, so the crop changes as it passes. */
 .media {
@@ -162,7 +171,7 @@
   position: absolute;
   inset: auto 0 0 0;
   z-index: 1;
-  /* The description carries a light tint of the logo blue; titles stay white. */
+  /* Titles stay white; descriptions are light blue. */
   color: color-mix(in oklch, var(--color-brand) 30%, var(--color-on-night));
   display: flex;
   flex-direction: column;
@@ -185,7 +194,7 @@
   max-width: 34ch;
   font-size: clamp(0.9375rem, 0.3vw + 0.85rem, 1.0625rem);
   line-height: 1.5;
-  color: color-mix(in oklch, color-mix(in oklch, var(--color-brand) 25%, var(--color-on-night)) 88%, transparent);
+  color: var(--color-glow);
   text-wrap: pretty;
 }
 

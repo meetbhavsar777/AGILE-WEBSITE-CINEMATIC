@@ -133,7 +133,7 @@ export function Solutions() {
           <div ref={trackRef} className={styles.track}>
             {solutions.map((s) => (
               <article key={s.id} className={styles.card} data-card>
-                <div className={styles.picture}>
+                <div className={styles.picture} data-light={s.light ? "" : undefined}>
                   <div className={styles.media}>
                     {s.media.src ? (
                       <Image

@@ -8,6 +8,8 @@ export type Solution = {
   body: string;
   // Leave `src` empty to show the placeholder frame.
   media: Media;
+  // A pale photo; darkens the shade behind the text so it stays readable.
+  light?: boolean;
 };
 
 export const intro = {
@@ -45,12 +47,14 @@ export const solutions: Solution[] = [
     id: "sample-preparation",
     name: "Sample preparation",
     body: "Reliable preparation technologies designed for accurate and reproducible analysis.",
-    media: { ratio: 4 / 3 },
+    media: { ratio: 4 / 3, src: "/images/solutions/sample-preparation.webp", alt: "Gloved hands placing a tube of red sample into a rack of test tubes." },
+    light: true,
   },
   {
     id: "custom-solutions",
     name: "Custom solutions",
     body: "Engineered systems, integration and specialized configurations built around specific application requirements.",
-    media: { ratio: 4 / 3 },
+    media: { ratio: 4 / 3, src: "/images/solutions/custom-solutions.webp", alt: "A white laboratory microscope on a bench.", focus: "50% 55%" },
+    light: true,
   },
 ];
