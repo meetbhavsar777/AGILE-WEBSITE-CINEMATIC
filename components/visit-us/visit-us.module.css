@@ -1,0 +1,205 @@
+/* Hallmark · CONTACT (visit us) · genre: modern-minimal · theme: custom (logo palette)
+ * Clean white close: ink type, real details in a quiet list, one blue
+ * action, and a softened map. One family (Host Grotesk).
+ */
+
+.section {
+  display: grid;
+  gap: var(--space-2xl);
+  padding: var(--space-3xl) var(--gutter);
+  background: var(--color-day);
+  color: var(--color-ink);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  min-width: 0;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4.6vw + 0.4rem, 5.25rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.titleLine {
+  display: block;
+}
+
+/* Details: small grey labels over the values. */
+.details {
+  display: grid;
+  gap: var(--space-lg);
+  margin: 0;
+}
+
+.detail {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.detail dt {
+  font-size: var(--text-small);
+  color: var(--color-neutral);
+}
+
+.detail dd {
+  margin: 0;
+  font-size: var(--text-lede);
+  line-height: 1.5;
+}
+
+.detail address {
+  font-style: normal;
+}
+
+.addressLine {
+  display: block;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail a {
+  color: inherit;
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size var(--dur-long) var(--ease-out);
+}
+
+.detail a:hover {
+  background-size: 100% 1px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  height: 3rem;
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-pill);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-short) var(--ease-out),
+    border-color var(--dur-short) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+
+.primary {
+  background: var(--color-brand);
+  color: var(--color-on-night);
+  border: var(--rule-hair) solid var(--color-brand);
+}
+
+.primary:hover {
+  background: var(--color-brand-deep);
+  border-color: var(--color-brand-deep);
+}
+
+.secondary {
+  color: var(--color-ink);
+  border: var(--rule-hair) solid var(--color-rule);
+}
+
+.secondary:hover {
+  border-color: var(--color-ink);
+}
+
+.secondary svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.primary:active,
+.secondary:active {
+  transform: translateY(1px);
+}
+
+.primary:focus-visible,
+.secondary:focus-visible,
+.detail a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* The map: softened to greys so it sits quietly on the white page; full
+   colour returns while the pointer is over it. */
+.map {
+  position: relative;
+  min-height: 22rem;
+  border-radius: clamp(14px, 1.6vw, 24px);
+  overflow: clip;
+  background: var(--color-paper);
+  box-shadow: 0 1.5rem 3rem -2rem color-mix(in oklch, var(--color-night) 35%, transparent);
+}
+
+.mapFrame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(1) contrast(1.05) brightness(1.04);
+  transition: filter var(--dur-long) var(--ease-out);
+}
+
+.map:hover .mapFrame {
+  filter: none;
+}
+
+@media (min-width: 768px) {
+  .details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-xl);
+  }
+
+  .detail:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    column-gap: clamp(var(--space-2xl), 5vw, 6rem);
+    align-items: stretch;
+  }
+
+  .map {
+    min-height: 32rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mapFrame,
+  .detail a {
+    transition: none;
+  }
+}
