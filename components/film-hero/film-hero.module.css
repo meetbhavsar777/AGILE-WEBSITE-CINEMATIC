@@ -581,8 +581,8 @@
 
 /* ---------- Brand statement ---------- */
 
-/* Over the darkening film, the official logo arrives in three steps: the
-   A tile, the name, then the tagline. Each part's progress
+/* Over the darkening film: the name, enormous, rises letter by letter; then
+   the tagline is signed underneath with the logo's arc. Each part's progress
    runs 0 → 1 across its own slice of --q; scrolling back reverses it. */
 .brand {
   position: absolute;
@@ -591,7 +591,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   color: var(--color-on-night);
   pointer-events: none;
 }
@@ -605,43 +604,85 @@
   white-space: nowrap;
 }
 
-/* The logo, sized to sit well inside the screen. The three layers share
-   one canvas, so they line up exactly as in the artwork. */
-.logo {
+/* Sized by JS so the widest line fills the width exactly. */
+.brandName {
+  width: max-content;
+  max-width: none;
+  margin: 0;
+  font-family: var(--font-logo);
+  font-size: 10vw;
+  font-weight: 600;
+  /* All-caps floor: below 1.0 the stacked phone lines collide. */
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.brandWord {
+  display: inline-block;
+  clip-path: inset(-0.2em -0.1em 0 -0.1em);
+}
+
+.brandWord + .brandWord {
+  margin-left: 0.28em;
+}
+
+.letter {
+  --r: clamp(0, calc((var(--q) - 0.05 - var(--i) * 0.025) / 0.15), 1);
+  display: inline-block;
+  transform: translateY(calc((1 - var(--r)) * (100% + 0.2em)));
+}
+
+.signature {
+  --rs: clamp(0, calc((var(--q) - 0.5) / 0.2), 1);
+  --rt: clamp(0, calc((var(--q) - 0.58) / 0.17), 1);
+  --rd: clamp(0, calc((var(--q) - 0.68) / 0.07), 1);
+  display: flex;
+  justify-content: flex-end;
+  margin: var(--space-xl) 0 0;
+}
+
+.signatureText {
   position: relative;
-  width: min(86vw, 36rem, 58svh * 1.89);
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.3vw + 0.6rem, 1.875rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-on-night);
+  /* Leaves room for the arc's dot past the full stop. */
+  margin-right: 0.9em;
+  opacity: var(--rt);
+  transform: translateY(calc((1 - var(--rt)) * 10px));
 }
 
-.logo img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.logo img + img {
+.signatureArc {
   position: absolute;
-  inset: 0;
+  left: -0.4em;
+  bottom: -1.05em;
+  width: calc(100% + 1.3em);
+  height: auto;
+  overflow: visible;
+  opacity: 1;
+  transform: none;
 }
 
-/* The tile settles in first, then the name rises, then the tagline. */
-.logoMark {
-  --r: clamp(0, calc((var(--q) - 0.08) / 0.22), 1);
-  opacity: var(--r);
-  transform-origin: 50% 25%;
-  transform: translateY(calc((1 - var(--r)) * 1.5rem))
-    scale(calc(0.94 + 0.06 * var(--r)));
+.sigPath {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--rs));
 }
 
-.logoName {
-  --r: clamp(0, calc((var(--q) - 0.24) / 0.2), 1);
-  opacity: var(--r);
-  transform: translateY(calc((1 - var(--r)) * 1.25rem));
+.sigHalo,
+.sigDot {
+  opacity: var(--rd);
 }
 
-.logoTagline {
-  --r: clamp(0, calc((var(--q) - 0.4) / 0.2), 1);
-  opacity: var(--r);
-  transform: translateY(calc((1 - var(--r)) * 1rem));
+.sigHalo {
+  fill: var(--color-glow);
+  fill-opacity: 0.45;
+}
+
+.sigDot {
+  fill: var(--color-glow);
 }
 
 /* ---------- Intro skip ---------- */
@@ -803,6 +844,18 @@
     bottom: var(--space-lg);
   }
 
+  /* Stack the two words so the name can be larger on a narrow screen. */
+  .brandWord {
+    display: block;
+  }
+
+  .brandWord + .brandWord {
+    margin-left: 0;
+  }
+
+  .signature {
+    justify-content: flex-start;
+  }
 }
 
 /* Short phones: the lede already carries the year. */
