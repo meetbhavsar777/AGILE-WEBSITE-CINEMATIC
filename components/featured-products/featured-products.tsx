@@ -133,9 +133,17 @@ export function FeaturedProducts() {
           role="tabpanel"
           aria-labelledby={`product-tab-${current.id}`}
         >
-          <div className={styles.stage}>
+          {/* The picture links to the product too; the "View product" link
+              below is the one for keyboards and screen readers. */}
+          <a
+            className={styles.stage}
+            href={`/products#${current.id}`}
+            tabIndex={-1}
+            aria-hidden="true"
+            data-cursor="View"
+          >
             <Shot product={current} sizes="(min-width: 1024px) 55vw, 90vw" />
-          </div>
+          </a>
           <div className={styles.foot}>
             <div className={styles.nameRow}>
               <Mark product={current} className={styles.mark} />

@@ -129,6 +129,12 @@
   background: color-mix(in oklch, var(--color-night) 78%, transparent);
 }
 
+/* With the trailing cursor the play icon travels with the mouse instead,
+   so the one in the middle stays for keyboard focus only. */
+:global(.has-cursor) .play:not(:focus-visible) .playDisc {
+  opacity: 0;
+}
+
 /* The full film */
 .dialog {
   width: min(92vw, 80rem);

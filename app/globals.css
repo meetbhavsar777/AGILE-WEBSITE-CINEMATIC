@@ -171,3 +171,9 @@
     display: none;
   }
 }
+/* The trailing cursor (components/site-cursor) stands in for the pointer
+   over anything marked data-cursor, once it is running. */
+.has-cursor [data-cursor],
+.has-cursor [data-cursor] * {
+  cursor: none;
+}

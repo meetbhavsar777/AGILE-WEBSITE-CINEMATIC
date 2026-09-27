@@ -1,0 +1,54 @@
+/* Hallmark · SITE CURSOR · a disc that trails the mouse in place of the
+   pointer: white over the film, logo blue over light product photos. */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  transform: translate3d(-100px, -100px, 0);
+  will-change: transform;
+}
+
+.disc {
+  position: absolute;
+  top: -2.25rem;
+  left: -2.25rem;
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-day);
+  color: var(--color-brand);
+  box-shadow: 0 0.5rem 1.5rem color-mix(in oklch, var(--color-night) 18%, transparent);
+  opacity: 0;
+  transform: scale(0.2);
+  transition:
+    opacity var(--dur-short) var(--ease-out),
+    transform 420ms var(--ease-out);
+}
+
+.disc[data-kind="label"] {
+  background: var(--color-brand);
+  color: var(--color-day);
+}
+
+.disc[data-on] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.disc svg {
+  width: 0.875rem;
+  height: 1rem;
+  margin-left: 0.1875rem;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}

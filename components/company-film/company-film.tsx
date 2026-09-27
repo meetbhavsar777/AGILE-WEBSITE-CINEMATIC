@@ -128,6 +128,7 @@ export function CompanyFilm() {
             <button
               type="button"
               className={styles.play}
+              data-cursor="play"
               onClick={open}
               aria-haspopup="dialog"
               aria-label={`Watch the film (${FILM.duration})`}
