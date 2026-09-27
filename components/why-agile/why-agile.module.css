@@ -1,0 +1,173 @@
+/* Hallmark · WHY AGILE · genre: modern-minimal · theme: custom (logo palette)
+ * A bento of four reasons on white. One large blue tile holds the years
+ * in service; three quiet tiles hold one reason each, with thin line
+ * icons matching the partner grid. One family (Host Grotesk).
+ */
+
+.section {
+  padding: var(--space-3xl) var(--gutter);
+  color: var(--color-ink);
+}
+
+.header {
+  margin-bottom: var(--space-2xl);
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-lg);
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.4vw + 0.4rem, 5rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.titleLine {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-2xl);
+  min-height: 13rem;
+  padding: clamp(var(--space-lg), 2.4vw, var(--space-2xl));
+  border: var(--rule-hair) solid color-mix(in oklch, var(--color-ink) 8%, transparent);
+  border-radius: clamp(14px, 1.6vw, 24px);
+  background: var(--color-paper);
+  transition:
+    transform var(--dur-long) var(--ease-out),
+    background-color var(--dur-long) var(--ease-out);
+}
+
+.tile:not(.feature):hover {
+  transform: translateY(-3px);
+  background: color-mix(in oklch, var(--color-accent) 6%, var(--color-paper));
+}
+
+/* The large tile: the logo blue, white type, the figure set huge. */
+.feature {
+  justify-content: flex-end;
+  border-color: transparent;
+  background: var(--color-accent-deep);
+  color: var(--color-on-night);
+}
+
+.figure {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 11vw, 11rem);
+  font-weight: 400;
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+}
+
+.unit {
+  font-size: clamp(1.25rem, 1.6vw, 1.75rem);
+  letter-spacing: -0.02em;
+  color: var(--color-glow);
+}
+
+.featureText {
+  max-width: 28ch;
+  margin: 0;
+  font-size: var(--text-lede);
+  line-height: 1.5;
+  color: color-mix(in oklch, var(--color-on-night) 85%, transparent);
+}
+
+.icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.reason {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1vw + 0.8rem, 1.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.body {
+  max-width: 40ch;
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--color-neutral);
+}
+
+/* Tiles rise in one after another, the first time the grid is seen. */
+.grid[data-ready] .tile {
+  transition:
+    opacity 800ms var(--ease-out) calc(var(--i) * 90ms),
+    transform 900ms var(--ease-out) calc(var(--i) * 90ms),
+    background-color var(--dur-long) var(--ease-out);
+}
+
+.grid[data-ready]:not([data-shown]) .tile {
+  opacity: 0;
+  transform: translateY(1.5rem);
+}
+
+/* Wide screens: a 4 × 2 bento. The feature takes the left half; the brands
+   tile runs along the top right; the two service tiles sit under it. */
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: minmax(15rem, auto);
+  }
+
+  .feature {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .tile[data-size="wide"] {
+    grid-column: span 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile,
+  .grid[data-ready] .tile {
+    transition: background-color var(--dur-long) var(--ease-out);
+  }
+
+  .grid[data-ready]:not([data-shown]) .tile {
+    opacity: 1;
+    transform: none;
+  }
+
+  .tile:not(.feature):hover {
+    transform: none;
+  }
+}
