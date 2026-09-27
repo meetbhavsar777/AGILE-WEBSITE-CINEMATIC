@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Host_Grotesk, Sora } from "next/font/google";
-import { SiteCursor } from "@/components/site-cursor/site-cursor";
 import "./globals.css";
 
 const hostGrotesk = Host_Grotesk({
@@ -27,10 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${hostGrotesk.variable} ${sora.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        {children}
-        <SiteCursor />
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

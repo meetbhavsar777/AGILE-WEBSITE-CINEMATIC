@@ -170,7 +170,6 @@
 
 .stage {
   position: relative;
-  display: block;
   aspect-ratio: 16 / 10;
 }
 
