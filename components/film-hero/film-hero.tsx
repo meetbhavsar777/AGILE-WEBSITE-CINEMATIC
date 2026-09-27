@@ -24,7 +24,8 @@ const STATS = [
 const formatStat = (n: number) => `${n.toLocaleString("en-IN")}+`;
 
 const BRAND_WORDS = ["AGILE", "SCITECH"];
-const TAGLINE = "Advanced Science. Applied Precisely.";
+// The tagline from the official logo artwork.
+const TAGLINE = "Advancing Science, Delivering Excellence";
 
 // Scroll runway: the film opens over the first stretch, holds full screen,
 // then darkens while the brand statement rises over it.
@@ -258,27 +259,25 @@ export function FilmHero() {
       >
         <div className={styles.copy}>
           <div className={styles.lead}>
-            <h1 id="hero-title" className={styles.title}>
-              <span className={styles.line}>
-                <span className={styles.lineInner}>Global instruments,</span>
-              </span>
-              <span className={styles.line}>
-                <span className={styles.lineInner}>
-                  <span
-                    ref={slotRef}
-                    className={styles.slot}
-                    aria-hidden="true"
-                  />
-                  <span className={styles.mark}>
-                    supported
-                    <TrajectoryArc />
+            <div className={styles.titleBlock}>
+              <h1 id="hero-title" className={styles.title}>
+                <span className={styles.line}>
+                  <span className={styles.lineInner}>Scientific technology.</span>
+                </span>
+                <span className={styles.line}>
+                  <span className={styles.lineInner}>
+                    Delivered with{" "}
+                    <span className={styles.mark}>
+                      precision
+                      <TrajectoryArc />
+                    </span>
+                    .
                   </span>
                 </span>
-              </span>
-              <span className={styles.line}>
-                <span className={styles.lineInner}>like local ones.</span>
-              </span>
-            </h1>
+              </h1>
+              {/* An empty strip below the headline; the film opens inside it. */}
+              <span ref={slotRef} className={styles.slot} aria-hidden="true" />
+            </div>
 
             <div className={styles.aside}>
               <p className={styles.lede}>
@@ -357,8 +356,11 @@ export function FilmHero() {
             onClick={openFilm}
             aria-haspopup="dialog"
           >
-            <PlayGlyph />
-            <RollText>{`Watch the film (${FILM.duration})`}</RollText>
+            <span className={styles.playDisc}>
+              <PlayGlyph />
+            </span>
+            <RollText>Watch the film</RollText>
+            <span className={styles.duration}>{FILM.duration}</span>
           </button>
         </div>
 

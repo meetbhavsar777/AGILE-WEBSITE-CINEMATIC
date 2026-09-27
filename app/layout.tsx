@@ -15,7 +15,7 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Agile SciTech — Laboratory instruments, supported in India",
+  title: "Agile SciTech — Scientific technology, delivered with precision",
   description:
     "Authorised in India for Welch, Inscinstech, RainSure, FlowCam, Unchained Labs and Bio-Techne. Serving pharma and biotech labs from Ahmedabad since 2013.",
 };
