@@ -171,8 +171,8 @@
   position: absolute;
   inset: auto 0 0 0;
   z-index: 1;
-  /* Titles stay white; descriptions are light blue. */
-  color: color-mix(in oklch, var(--color-brand) 30%, var(--color-on-night));
+  /* Titles take a tint from the card's photo; descriptions are white. */
+  color: var(--color-on-night);
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -181,7 +181,7 @@
 
 .name {
   margin: 0;
-  color: var(--color-on-night);
+  color: var(--tint, var(--color-on-night));
   font-family: var(--font-display);
   font-size: clamp(1.625rem, min(2.4vw + 0.4rem, 5svh), 2.75rem);
   font-weight: 400;
@@ -194,7 +194,7 @@
   max-width: 34ch;
   font-size: clamp(0.9375rem, 0.3vw + 0.85rem, 1.0625rem);
   line-height: 1.5;
-  color: var(--tint, var(--color-glow));
+  color: var(--color-on-night);
   text-wrap: pretty;
 }
 
