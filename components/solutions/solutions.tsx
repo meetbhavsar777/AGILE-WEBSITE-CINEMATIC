@@ -132,7 +132,12 @@ export function Solutions() {
         <div className={styles.stage}>
           <div ref={trackRef} className={styles.track}>
             {solutions.map((s) => (
-              <article key={s.id} className={styles.card} data-card>
+              <article
+                key={s.id}
+                className={styles.card}
+                data-card
+                style={{ "--tint": `var(--color-tint-${s.tint})` } as CSSProperties}
+              >
                 <div className={styles.picture} data-light={s.light ? "" : undefined}>
                   <div className={styles.media}>
                     {s.media.src ? (

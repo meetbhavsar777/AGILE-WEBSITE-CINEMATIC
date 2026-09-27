@@ -21,6 +21,13 @@
   --color-accent-deep: oklch(42.7% 0.191 264);
   --color-accent-bright: oklch(68.2% 0.172 253);
   --color-glow: oklch(88.4% 0.082 221);
+  /* Light tints picked from the Solutions photos, for text on dark shade. */
+  --color-tint-amber: oklch(86% 0.09 65);
+  --color-tint-ice: oklch(88% 0.075 215);
+  --color-tint-lavender: oklch(85% 0.075 295);
+  --color-tint-pink: oklch(85% 0.09 350);
+  --color-tint-coral: oklch(84% 0.09 25);
+  --color-tint-teal: oklch(87% 0.07 195);
   /* The blue of the official logo artwork (#243f82): used for the quote buttons. */
   --color-brand: oklch(38.6% 0.118 265);
   --color-brand-deep: oklch(31% 0.1 265);

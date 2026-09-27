@@ -194,7 +194,7 @@
   max-width: 34ch;
   font-size: clamp(0.9375rem, 0.3vw + 0.85rem, 1.0625rem);
   line-height: 1.5;
-  color: var(--color-glow);
+  color: var(--tint, var(--color-glow));
   text-wrap: pretty;
 }
 
