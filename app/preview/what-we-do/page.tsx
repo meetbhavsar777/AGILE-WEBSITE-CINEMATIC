@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { CompanyFilm } from "@/components/company-film/company-film";
 import { FeaturedProducts } from "@/components/featured-products/featured-products";
 import { Case } from "@/components/ui/cases-with-infinite-scroll";
@@ -12,9 +13,16 @@ import { Solutions } from "@/components/solutions/solutions";
 import { WhatWeDo } from "@/components/what-we-do/what-we-do";
 import { WhyAgile } from "@/components/why-agile/why-agile";
 import { clientLogos } from "@/lib/client-logos";
-import styles from "./page.module.css";
+import styles from "./preview.module.css";
 
-export default function Home() {
+// Review copy of the home page with the new WHAT WE DO section in place.
+// The real home page is unchanged until this is approved.
+export const metadata: Metadata = {
+  title: "Preview: What we do",
+  robots: { index: false, follow: false },
+};
+
+export default function WhatWeDoPreview() {
   return (
     <main className="block">
       <SiteNav />

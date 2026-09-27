@@ -1,0 +1,9 @@
+.night {
+  background: var(--color-night);
+  color: var(--color-on-night);
+}
+
+.day {
+  background: var(--color-day);
+  color: var(--color-ink);
+}

@@ -1,0 +1,5 @@
+/* From the film on, the page is plain white. */
+.day {
+  background: var(--color-day);
+  color: var(--color-ink);
+}

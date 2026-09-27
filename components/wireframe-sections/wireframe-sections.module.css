@@ -1,0 +1,167 @@
+/* Wireframe only: dashed outlines and bars mark where each section's parts
+   will sit. Line colour follows the section's tone as the page ground
+   lightens from night to white. */
+
+.section {
+  padding: var(--space-3xl) var(--gutter);
+}
+
+.section[data-tone="night"],
+.section[data-tone="dusk"] {
+  --wire: var(--color-on-night);
+}
+
+.section[data-tone="day"] {
+  --wire: var(--color-ink);
+}
+
+.box,
+.bar {
+  border: var(--rule-hair) dashed color-mix(in oklch, var(--wire) 32%, transparent);
+  background: color-mix(in oklch, var(--wire) 6%, transparent);
+}
+
+.box {
+  min-height: 12rem;
+  border-radius: var(--radius-sm);
+}
+
+.bar {
+  height: var(--space-md);
+  border-radius: var(--radius-pill);
+}
+
+.short {
+  width: 60%;
+}
+
+/* Section head: heading and one supporting line */
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-2xl);
+}
+
+.headline {
+  width: min(28rem, 70%);
+  height: var(--space-2xl);
+}
+
+.subline {
+  width: min(20rem, 50%);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.statement {
+  min-height: 18rem;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Ruled rows: name left, detail right */
+.rows {
+  border-bottom: var(--rule-hair) solid color-mix(in oklch, var(--wire) 22%, transparent);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding-block: var(--space-xl);
+  border-top: var(--rule-hair) solid color-mix(in oklch, var(--wire) 22%, transparent);
+}
+
+.rowName {
+  width: min(16rem, 55%);
+}
+
+.rowMeta {
+  width: min(6rem, 25%);
+}
+
+.products {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  grid-template-rows: repeat(2, minmax(12rem, auto));
+  gap: var(--space-lg);
+}
+
+.productLead {
+  grid-row: span 2;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.tab {
+  width: 8rem;
+  height: 2.5rem;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.panelMedia {
+  aspect-ratio: 4 / 3;
+  min-height: 0;
+}
+
+.video {
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+}
+
+.partners {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.partner {
+  aspect-ratio: 3 / 2;
+  min-height: 0;
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: var(--space-2xl);
+  }
+
+  .split,
+  .panel,
+  .products {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .productLead {
+    grid-row: auto;
+  }
+
+  .partners {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tab {
+    width: 6rem;
+  }
+}
