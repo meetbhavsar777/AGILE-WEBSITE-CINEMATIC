@@ -1,0 +1,508 @@
+/* Hallmark · WHAT WE DO · genre: modern-minimal · theme: custom (logo palette, navy ground)
+ * Three same-size cards stack as you scroll. A rising card leans in and
+ * settles; the one it covers sinks back and dims; its picture settles
+ * inside the frame; its words rise one by one. No rules or ornaments.
+ * Type: one family (Host Grotesk). Kicker 15 · body 17 · title up to 56.
+ */
+
+.section {
+  /* Portrait screens: a tall crop of the photo, words across its foot. */
+  --card-ratio: 0.8;
+  --card-h: min(74svh, calc((100vw - 2 * var(--gutter)) / 0.8));
+  position: relative;
+  /* No ground of its own: it sits on the page's shared night-to-white fade. */
+  color: var(--color-on-night);
+}
+
+/* Headings: one block per designed line; each word rises out of its own
+   mask. The mask is padded so ascenders and descenders are never cut. */
+.titleLine {
+  display: block;
+}
+
+.word {
+  display: inline-block;
+  vertical-align: top;
+  overflow: clip;
+  padding: 0.1em 0.05em 0.18em;
+  margin: -0.1em -0.05em -0.18em;
+}
+
+.wordInner {
+  display: inline-block;
+  transform-origin: 0 100%;
+}
+
+/* Intro */
+
+.intro {
+  display: grid;
+  gap: var(--space-lg);
+  padding: var(--space-3xl) var(--gutter) var(--space-2xl);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--color-glow);
+}
+
+.introTitle {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.2vw + 0.5rem, 4.75rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
+}
+
+.introBody {
+  margin: 0;
+  max-width: 36ch;
+  font-size: var(--text-lede);
+  line-height: 1.55;
+  color: var(--color-on-night-muted);
+  text-wrap: pretty;
+}
+
+.section[data-ready] .intro .wordInner {
+  transition: transform 1100ms var(--ease-out) calc(var(--w) * 60ms);
+}
+
+.section[data-ready] .intro :is(.eyebrow, .introBody) {
+  transition:
+    opacity 900ms var(--ease-out) 380ms,
+    transform 900ms var(--ease-out) 380ms;
+}
+
+.section[data-ready] .intro:not([data-shown]) .wordInner {
+  transform: translate3d(0, 115%, 0) rotate(5deg);
+}
+
+.section[data-ready] .intro:not([data-shown]) :is(.eyebrow, .introBody) {
+  opacity: 0;
+  transform: translateY(0.75rem);
+}
+
+/* The stack. A flex column, so card margins never collapse; each margin is
+   the scroll a card holds alone before the next one arrives. Every card
+   keeps the same margin (the last too), so the pile leaves together. */
+.stack {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gutter);
+}
+
+/* Room for the last card to hold before the pile leaves. Padding would not
+   count: sticky cards are bound by the content box. */
+.stack::after {
+  content: "";
+  flex: none;
+  height: 32svh;
+}
+
+/* Each card is its photo: the card takes the picture's shape (3:2 on wide
+   screens) and the words sit on the photo itself. */
+.card {
+  position: sticky;
+  top: calc((100svh - var(--card-h)) / 2 + 1.75rem);
+  align-self: center;
+  width: min(100%, calc(var(--card-h) * var(--card-ratio)));
+  height: var(--card-h);
+  margin-bottom: 28svh;
+  perspective: 1600px;
+}
+
+/* --rise: 0 entering at the screen's foot, 1 docked.
+   --depth: how many cards lie over this one (0 to 2). */
+.cardInner {
+  position: relative;
+  height: 100%;
+  border-radius: var(--radius-film);
+  background: var(--color-navy);
+  box-shadow:
+    0 1.5rem 3rem -1.5rem color-mix(in oklch, var(--color-night) 70%, transparent);
+  overflow: clip;
+  transform-origin: 50% 0;
+  transform:
+    translate3d(0, calc(var(--depth, 0) * -1.125rem), 0)
+    scale(calc(1 - var(--depth, 0) * 0.05))
+    rotateX(calc((1 - var(--rise, 1)) * 6deg));
+  will-change: transform;
+}
+
+/* The dimming a card takes as others cover it, above photo and words. */
+.cardInner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  background: color-mix(in oklch, var(--color-night) calc(min(var(--depth, 0), 1.5) * 40%), transparent);
+  pointer-events: none;
+}
+
+.picture {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  background: color-mix(in oklch, var(--color-on-night) 5%, transparent);
+}
+
+/* Night gathers in the lower left, where the words sit, and clears
+   towards the top right, so the photo stays open. */
+.picture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      color-mix(in oklch, var(--color-night) 80%, transparent) 0%,
+      color-mix(in oklch, var(--color-night) 40%, transparent) 35%,
+      transparent 60%
+    ),
+    linear-gradient(
+      to right,
+      color-mix(in oklch, var(--color-night) 45%, transparent) 0%,
+      transparent 55%
+    );
+}
+
+/* The picture is taller than its frame and settles as the card docks,
+   like a lens coming to focus. */
+.media {
+  position: absolute;
+  inset: -8% 0;
+  transform:
+    translate3d(0, calc((1 - var(--rise, 1)) * 9%), 0)
+    scale(calc(1 + (1 - var(--rise, 1)) * 0.1));
+}
+
+.media img {
+  object-fit: cover;
+}
+
+/* Placeholder: a small mark at the picture's centre. */
+.placeholder {
+  --mark: color-mix(in oklch, var(--color-on-night) 26%, transparent);
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--mark), var(--mark)) center / var(--rule-hair) 1.125rem no-repeat,
+    linear-gradient(var(--mark), var(--mark)) center / 1.125rem var(--rule-hair) no-repeat;
+}
+
+/* The words sit straight on the photo, over the shade below. */
+.text {
+  position: absolute;
+  inset: auto var(--space-sm) var(--space-sm) var(--space-sm);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 6.4vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.body {
+  margin: 0;
+  max-width: 46ch;
+  font-size: clamp(0.9375rem, 0.3vw + 0.875rem, 1.0625rem);
+  line-height: 1.55;
+  color: color-mix(in oklch, var(--color-on-night) 90%, transparent);
+  text-wrap: pretty;
+}
+
+/* Text choreography, once the script is running. Arrive: the title word by
+   word, then the paragraph unrolling. Leave: all at once. */
+.section[data-ready] .card .wordInner {
+  transition: transform 1100ms var(--ease-out) calc(140ms + var(--w) * 55ms);
+}
+
+.section[data-ready] .body {
+  transition:
+    opacity 700ms var(--ease-out) 420ms,
+    clip-path 1100ms var(--ease-out) 420ms,
+    transform 1100ms var(--ease-out) 420ms;
+}
+
+.section[data-ready] .card:not([data-state="in"]) .wordInner {
+  transform: translate3d(0, 115%, 0) rotate(5deg);
+  transition: transform 380ms var(--ease-in);
+}
+
+.section[data-ready] .card:not([data-state="in"]) .body {
+  opacity: 0;
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(0.75rem);
+  transition:
+    opacity 250ms var(--ease-in),
+    clip-path 300ms var(--ease-in),
+    transform 300ms var(--ease-in);
+}
+
+/* Capability index: very large lines. Each one brightens as it passes
+   the middle of the screen (--lit, set by the script), slides in behind a
+   short accent bar, and dims after. A rolling counter beside the list
+   shows which line is lit (--k). */
+
+.index {
+  display: grid;
+  gap: var(--space-xl);
+  padding: var(--space-3xl) var(--gutter);
+}
+
+.indexAside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.indexTitle {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--color-glow);
+}
+
+.indexCount {
+  display: none;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.indexRoll {
+  display: inline-block;
+  height: 1em;
+  overflow: clip;
+  font-size: clamp(4rem, 7vw, 7.5rem);
+  line-height: 1;
+  color: var(--color-on-night);
+}
+
+.indexRollInner {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(var(--k, 0) * -1em));
+  transition: transform 700ms var(--ease-out);
+}
+
+.indexRollInner > span {
+  display: block;
+  height: 1em;
+}
+
+.indexTotal {
+  font-size: var(--text-lede);
+  color: var(--color-on-night-muted);
+}
+
+.indexList {
+  display: flex;
+  flex-direction: column;
+  /* Clear air between items, so a two-line item never reads as two. */
+  gap: clamp(1.25rem, 2.6vw, 2.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.indexList li {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 3.6vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  /* Dim lines stay readable; the lit one is full white. */
+  color: color-mix(in oklch, var(--color-on-night) calc(42% + var(--lit, 1) * 58%), transparent);
+  transition: color 180ms linear;
+}
+
+.lineText {
+  display: block;
+  max-width: 26ch;
+  text-wrap: balance;
+  transform: translateX(calc(var(--on, 0) * 0.9em));
+  transition: transform 260ms var(--ease-out);
+}
+
+/* The accent bar grows out from the left edge as the line lights. */
+.marker {
+  position: absolute;
+  left: 0;
+  top: 0.52em;
+  width: 0.55em;
+  height: 0.07em;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-bright);
+  transform: scaleX(var(--on, 0));
+  transform-origin: left;
+  opacity: var(--on, 0);
+  transition:
+    transform 260ms var(--ease-out),
+    opacity 260ms linear;
+}
+
+@media (min-width: 1024px) {
+  .index {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    column-gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  /* The counter stays beside the list while it scrolls past. */
+  .indexAside {
+    position: sticky;
+    top: calc(50svh - 5rem);
+  }
+
+  .indexCount {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lineText,
+  .marker,
+  .indexRollInner {
+    transition: none;
+  }
+}
+
+/* Tablet and up: the intro splits into two columns. */
+@media (min-width: 768px) {
+  .intro {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: var(--space-2xl);
+    align-items: end;
+    padding-top: calc(var(--space-3xl) * 1.5);
+    padding-bottom: var(--space-3xl);
+  }
+
+  .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .introBody {
+    justify-self: end;
+  }
+
+}
+
+/* Landscape screens: the card is the photo's own 3:2 shape. */
+@media (min-width: 768px) and (min-aspect-ratio: 5/4) {
+  .section {
+    --card-ratio: 1.9;
+    --card-h: min(76svh, calc((100vw - 2 * var(--gutter)) / 1.9));
+  }
+
+  .card {
+    top: calc((100svh - var(--card-h)) / 2 + 2.25rem);
+    margin-bottom: 32svh;
+  }
+
+  /* Panel on the left third, the photo open to the right of it. */
+  .text {
+    inset: auto auto var(--space-md) var(--space-md);
+    width: min(38%, 30rem);
+    gap: clamp(var(--space-sm), 2svh, var(--space-md));
+    padding: clamp(var(--space-lg), 4svh, var(--space-2xl));
+  }
+
+  .title {
+    font-size: clamp(1.625rem, min(2.4vw + 0.2rem, 6svh), 3rem);
+    line-height: 1.02;
+  }
+}
+
+/* Short landscape screens. */
+@media (min-width: 768px) and (min-aspect-ratio: 5/4) and (max-height: 600px) {
+  .body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+/* Short phones. */
+@media (max-width: 767px) and (max-height: 700px) {
+  .card {
+    top: calc((100svh - var(--card-h)) / 2 + 1.5rem);
+  }
+
+  .text {
+    padding: var(--space-md);
+  }
+
+  .body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+/* Reduced motion: cards still stack (that is the page scrolling), but
+   nothing leans, zooms or rises; text is simply there. */
+@media (prefers-reduced-motion: reduce) {
+  .cardInner,
+  .media {
+    transform: none;
+  }
+
+  .section[data-ready] .intro:not([data-shown]) .wordInner,
+  .section[data-ready] .card:not([data-state="in"]) .wordInner,
+  .section[data-ready] .card:not([data-state="in"]) .body,
+  .section[data-ready] .intro:not([data-shown]) :is(.eyebrow, .introBody) {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+}
+
+/* Near-full cards: almost the whole screen, with a margin of navy all
+   round and generous rounded corners, so each photo reads as a framed
+   print rather than a wallpaper. */
+.stack {
+  padding-inline: clamp(1rem, 4vw, 4rem);
+}
+
+.section .card {
+  --card-h: min(80svh, 52rem);
+  top: calc((100svh - var(--card-h)) / 2 + 1.75rem);
+  width: 100%;
+}
+
+.cardInner {
+  border-radius: clamp(14px, 1.6vw, 24px);
+}
+
+@media (min-width: 768px) and (min-aspect-ratio: 5/4) {
+  .text {
+    inset: auto auto clamp(1rem, 3svh, 2rem) clamp(1rem, 2vw, 2rem);
+    width: min(36%, 32rem);
+  }
+}
+
+@media (max-width: 767px), (max-aspect-ratio: 5/4) {
+  .section .card {
+    --card-h: min(76svh, 44rem);
+  }
+}
