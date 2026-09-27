@@ -10,6 +10,7 @@
   --color-paper: oklch(96% 0.009 258);
   --color-paper-2: oklch(92.5% 0.012 258);
   --color-rule: oklch(86% 0.014 258);
+  --color-grid: oklch(16% 0.02 262 / 0.05);
   --color-neutral: oklch(48% 0.025 258);
   --color-ink: oklch(16% 0.02 262);
   --color-ink-2: oklch(26% 0.03 262);

@@ -65,6 +65,20 @@
   }
 }
 
+/* Faint lab chart paper behind the copy, fading out towards the lower left. */
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--color-grid) var(--rule-hair), transparent var(--rule-hair)),
+    linear-gradient(to bottom, var(--color-grid) var(--rule-hair), transparent var(--rule-hair));
+  background-size: 96px 96px;
+  background-position: var(--gutter) 0;
+  mask-image: radial-gradient(ellipse 75% 80% at 80% 20%, black, transparent);
+  pointer-events: none;
+}
+
 /* ---------- Copy ---------- */
 
 .copy {
