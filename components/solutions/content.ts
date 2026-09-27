@@ -21,7 +21,7 @@ export const solutions: Solution[] = [
     id: "chromatography",
     name: "Chromatography",
     body: "Separation technologies and systems for analytical, preparative and process workflows.",
-    media: { ratio: 4 / 3 },
+    media: { ratio: 4 / 3, src: "/images/solutions/chromatography.webp", alt: "An autosampler tray loaded with capped sample vials.", focus: "50% 60%" },
   },
   {
     id: "bioprocessing",
