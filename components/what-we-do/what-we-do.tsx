@@ -202,7 +202,7 @@ export function WhatWeDo() {
         <p className={styles.introBody}>{intro.body}</p>
       </header>
 
-      <div ref={stackRef} className={styles.stack} data-surface-hold>
+      <div ref={stackRef} className={styles.stack}>
         {chapters.map((c) => (
           <article key={c.number} className={styles.card} data-card>
             <div className={styles.cardInner}>

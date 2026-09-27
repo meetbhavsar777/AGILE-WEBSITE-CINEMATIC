@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import styles from "./blue-surface.module.css";
-import { SurfaceFade } from "./surface-fade";
 
 /**
  * The page below the hero film. It starts on the logo's night ground, so the
@@ -18,7 +17,6 @@ export function BlueSurface({
   return (
     <div className={styles.surface} data-from={from}>
       {children}
-      {from === "night-to-day" && <SurfaceFade />}
     </div>
   );
 }
