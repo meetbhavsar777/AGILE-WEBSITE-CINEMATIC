@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties } from "react";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { QUOTE_HREF, QUOTE_LABEL } from "@/lib/contact";
 import { RollText } from "./roll-text";
 import styles from "./film-hero.module.css";
@@ -23,7 +24,6 @@ const STATS = [
 
 const formatStat = (n: number) => `${n.toLocaleString("en-IN")}+`;
 
-const BRAND_WORDS = ["AGILE", "SCITECH"];
 // The tagline from the official logo artwork.
 const TAGLINE = "Advancing Science, Delivering Excellence";
 
@@ -47,7 +47,6 @@ export function FilmHero() {
   const stageRef = useRef<HTMLDivElement>(null);
   const slotRef = useRef<HTMLSpanElement>(null);
   const brandRef = useRef<HTMLDivElement>(null);
-  const nameRef = useRef<HTMLParagraphElement>(null);
   const loopRef = useRef<HTMLVideoElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const fullRef = useRef<HTMLVideoElement>(null);
@@ -58,8 +57,7 @@ export function FilmHero() {
     const slot = slotRef.current;
     const loop = loopRef.current;
     const brand = brandRef.current;
-    const name = nameRef.current;
-    if (!section || !stage || !slot || !loop || !brand || !name) return;
+    if (!section || !stage || !slot || !loop || !brand) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
@@ -99,22 +97,6 @@ export function FilmHero() {
         Math.max(w / sw, h / sh).toFixed(4),
       );
       stage.dataset.ready = "true";
-      fitName();
-    };
-
-    // Size the brand name so its widest line spans the column exactly.
-    // Transforms on the letters don't affect offsetWidth.
-    const fitName = () => {
-      const pad = getComputedStyle(brand);
-      const available =
-        brand.clientWidth -
-        parseFloat(pad.paddingLeft) -
-        parseFloat(pad.paddingRight);
-      name.style.fontSize = "100px";
-      const natural = name.offsetWidth;
-      if (natural > 0) {
-        name.style.fontSize = `${((100 * available) / natural).toFixed(2)}px`;
-      }
     };
 
     const update = () => {
@@ -368,32 +350,33 @@ export function FilmHero() {
         </div>
 
         <div ref={brandRef} className={styles.brand}>
-          <p ref={nameRef} className={styles.brandName}>
-            <span className={styles.srOnly}>Agile SciTech</span>
-            {BRAND_WORDS.map((word, w) => (
-              <span key={word} className={styles.brandWord} aria-hidden="true">
-                {Array.from(word).map((letter, i) => (
-                  <span
-                    key={i}
-                    className={styles.letter}
-                    style={
-                      {
-                        "--i": BRAND_WORDS.slice(0, w).join("").length + i,
-                      } as CSSProperties
-                    }
-                  >
-                    {letter}
-                  </span>
-                ))}
-              </span>
-            ))}
-          </p>
-          <p className={styles.signature}>
-            <span className={styles.signatureText}>
-              {TAGLINE}
-              <SignatureArc />
-            </span>
-          </p>
+          <p className={styles.srOnly}>Agile SciTech. {TAGLINE}</p>
+          {/* The official logo, in three layers that arrive in turn: the
+              A tile as it is, then the name and tagline in white so they
+              read on the dark film. */}
+          <div className={styles.logo} aria-hidden="true">
+            <Image
+              className={styles.logoMark}
+              src="/brand/hero-logo-mark.png"
+              alt=""
+              width={544}
+              height={288}
+            />
+            <Image
+              className={styles.logoName}
+              src="/brand/hero-logo-name.png"
+              alt=""
+              width={544}
+              height={288}
+            />
+            <Image
+              className={styles.logoTagline}
+              src="/brand/hero-logo-tagline.png"
+              alt=""
+              width={544}
+              height={288}
+            />
+          </div>
         </div>
       </div>
 
@@ -462,43 +445,6 @@ function TrajectoryArc() {
 }
 
 /** The logo's arc again, drawn under the tagline like a pen stroke. */
-function SignatureArc() {
-  return (
-    <svg
-      className={styles.signatureArc}
-      viewBox="0 0 440 34"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <defs>
-        <linearGradient
-          id="signature-arc"
-          x1="0"
-          y1="0"
-          x2="440"
-          y2="0"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0" style={{ stopColor: "var(--color-accent-bright)", stopOpacity: 0 }} />
-          <stop offset="0.55" style={{ stopColor: "var(--color-accent-bright)" }} />
-          <stop offset="1" style={{ stopColor: "var(--color-glow)" }} />
-        </linearGradient>
-      </defs>
-      <path
-        className={styles.sigPath}
-        d="M8 30C96 15 228 5 424 9"
-        pathLength={1}
-        fill="none"
-        stroke="url(#signature-arc)"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-      />
-      <circle className={styles.sigHalo} cx="426" cy="9" r="10" />
-      <circle className={styles.sigDot} cx="426" cy="9" r="4" />
-    </svg>
-  );
-}
-
 function PlayGlyph() {
   return (
     <svg
