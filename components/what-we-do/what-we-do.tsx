@@ -7,7 +7,7 @@ import styles from "./what-we-do.module.css";
 
 /**
  * WHAT WE DO: a short intro, three same-size chapter cards that stack as you
- * scroll, and a capability index that lights up line by line. Each card sticks in the middle of the
+ * scroll, and the capabilities as small glass cards. Each card sticks in the middle of the
  * screen; the next one rises over it while it sinks back and dims. Scroll
  * position drives every movement, so scrolling back plays it in reverse.
  */
@@ -58,7 +58,6 @@ function Words({ lines }: { lines: string[] }) {
 export function WhatWeDo() {
   const sectionRef = useRef<HTMLElement>(null);
   const stackRef = useRef<HTMLDivElement>(null);
-  const indexRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -68,7 +67,6 @@ export function WhatWeDo() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const cards = [...stack.querySelectorAll<HTMLElement>("[data-card]")];
     const introEl = section.querySelector<HTMLElement>("[data-intro]");
-    const lines = [...section.querySelectorAll<HTMLElement>("[data-line]")];
 
     let vh = 1;
     let stackTop = 0;
@@ -122,33 +120,6 @@ export function WhatWeDo() {
       if (y !== target) frame = requestAnimationFrame(render);
     };
 
-    // Capability lines: full brightness at the middle of the screen, fading
-    // over a third of the screen either side. The line nearest the middle
-    // opens its sentence; opening moves the lines below, so a new line only
-    // takes over once it is clearly nearer the middle than the open one.
-    let active = -1;
-    const light = () => {
-      const mid = vh / 2;
-      const off = lines.map((line) => {
-        const r = line.getBoundingClientRect();
-        return Math.abs(r.top + r.height / 2 - mid);
-      });
-      let best = 0;
-      lines.forEach((line, i) => {
-        const lit = 1 - clamp01(off[i] / (vh * 0.34));
-        line.style.setProperty("--lit", lit.toFixed(3));
-        // Sharper curve for the bar and the nudge: only the lit line moves.
-        line.style.setProperty("--on", (lit ** 4).toFixed(3));
-        if (off[i] < off[best]) best = i;
-      });
-      if (active < 0 || (best !== active && off[best] < off[active] - vh * 0.08)) {
-        if (active >= 0) delete lines[active].dataset.active;
-        active = best;
-        lines[active].dataset.active = "";
-        indexRef.current?.style.setProperty("--k", String(active));
-      }
-    };
-
     // Text state follows the real scroll position, so it is never late.
     const update = () => {
       const s = window.scrollY;
@@ -156,7 +127,6 @@ export function WhatWeDo() {
         card.dataset.state = riseAt(s, i) >= TEXT_IN ? "in" : "out";
       });
       if (!frame) frame = requestAnimationFrame(render);
-      light();
     };
 
     const onResize = () => {
@@ -225,35 +195,13 @@ export function WhatWeDo() {
         ))}
       </div>
 
-      <div ref={indexRef} className={styles.index}>
-        <div className={styles.indexAside}>
-          <h3 className={styles.indexTitle}>Capabilities</h3>
-          {/* Which line is lit, as a rolling counter. */}
-          <p className={styles.indexCount} aria-hidden="true">
-            <span className={styles.indexRoll}>
-              <span className={styles.indexRollInner}>
-                {capabilities.map((_, i) => (
-                  <span key={i}>{String(i + 1).padStart(2, "0")}</span>
-                ))}
-              </span>
-            </span>
-            <span className={styles.indexTotal}>/ {String(capabilities.length).padStart(2, "0")}</span>
-          </p>
-        </div>
-        <ul className={styles.indexList}>
+      <div className={styles.index}>
+        <h3 className={styles.indexTitle}>Capabilities</h3>
+        <ul className={styles.glassGrid}>
           {capabilities.map((c) => (
-            <li key={c.name} data-line>
-              <span className={styles.marker} aria-hidden="true" />
-              <span className={styles.lineText}>
-                <span className={styles.lineName}>{c.name}</span>
-                {/* Opens under the lit line; always in the page for
-                    screen readers. */}
-                <span className={styles.more}>
-                  <span className={styles.moreInner}>
-                    <span className={styles.sentence}>{c.line}</span>
-                  </span>
-                </span>
-              </span>
+            <li key={c.name} className={styles.glass}>
+              <p className={styles.glassName}>{c.name}</p>
+              <p className={styles.glassLine}>{c.line}</p>
             </li>
           ))}
         </ul>

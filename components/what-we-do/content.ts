@@ -55,7 +55,7 @@ export const chapters: Chapter[] = [
   },
 ];
 
-// Each capability with one plain sentence, shown when its line is lit.
+// Each capability with one plain sentence, shown on its card.
 // Drawn from the brief's own wording; no claims beyond it.
 export const capabilities = [
   {
