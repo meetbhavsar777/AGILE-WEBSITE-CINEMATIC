@@ -252,3 +252,16 @@
     transform: none;
   }
 }
+
+/* Version 2: on the white page (data-surface="white"), dark text. */
+:global([data-surface="white"]) .section {
+  color: var(--color-ink);
+}
+
+:global([data-surface="white"]) .eyebrow {
+  color: var(--color-accent);
+}
+
+:global([data-surface="white"]) .lede {
+  color: var(--color-neutral);
+}
