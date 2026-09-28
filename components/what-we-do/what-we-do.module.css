@@ -518,35 +518,8 @@
   }
 }
 
-/* Version 2: on the white page (data-surface="white"), dark text. */
+/* Version 2: on the white page this one section keeps its dark ground,
+   with the original light text. */
 :global([data-surface="white"]) .section {
-  color: var(--color-ink);
-}
-
-:global([data-surface="white"]) .eyebrow,
-:global([data-surface="white"]) .indexTitle {
-  color: var(--color-accent);
-}
-
-:global([data-surface="white"]) .introTitle,
-:global([data-surface="white"]) .indexRoll {
-  color: var(--color-ink);
-}
-
-:global([data-surface="white"]) .introBody,
-:global([data-surface="white"]) .indexTotal {
-  color: var(--color-neutral);
-}
-
-/* Words on the photos stay white. */
-:global([data-surface="white"]) .text {
-  color: var(--color-on-night);
-}
-
-:global([data-surface="white"]) .indexList li {
-  color: color-mix(in oklch, var(--color-ink) calc(35% + var(--lit, 1) * 65%), transparent);
-}
-
-:global([data-surface="white"]) .marker {
-  background: var(--color-accent);
+  background: var(--color-night);
 }
