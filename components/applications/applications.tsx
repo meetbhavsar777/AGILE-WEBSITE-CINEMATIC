@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import styles from "./applications.module.css";
+import { APPLICATIONS } from "./content";
 
 /**
  * APPLICATIONS: the industries Agile serves, as large names in ruled rows.
@@ -10,14 +11,6 @@ import styles from "./applications.module.css";
  * with a little lag. Screens without hover show a small photo in each row.
  */
 
-const APPLICATIONS = [
-  { name: "Pharmaceuticals", image: "/images/applications/pharma.jpg" },
-  { name: "Biotechnology and biologics", image: "/images/what-we-do/technology.jpg" },
-  { name: "Academic and research labs", image: "/images/applications/research.jpg" },
-  { name: "Agriculture and food", image: "/images/applications/agriculture.jpg" },
-  { name: "Environmental testing", image: "/images/applications/environmental.jpg" },
-  { name: "Industrial and process", image: "/images/applications/industrial.jpg" },
-];
 
 export function Applications() {
   const [active, setActive] = useState<number | null>(null);

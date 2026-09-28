@@ -10,7 +10,7 @@ import styles from "./partners.module.css";
  */
 
 // Thin, consistent line icons (24 × 24, 1.25 stroke), one per field.
-const ICONS: Record<string, ReactNode> = {
+export const ICONS: Record<string, ReactNode> = {
   // A stirred vessel: bioprocessing.
   bioreactor: (
     <>
@@ -60,7 +60,7 @@ const ICONS: Record<string, ReactNode> = {
   ),
 };
 
-const PARTNERS = [
+export const PARTNERS = [
   {
     name: "Inscinstech",
     logo: "/images/partners/inscinstech-logo.png",
